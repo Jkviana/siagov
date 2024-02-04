@@ -7,7 +7,7 @@ import requests as rq
 from io import StringIO
 from datetime import date
 import webbrowser
-import altair as alt
+#import altair as alt
 #import plotly_express as px
 import base64
 
