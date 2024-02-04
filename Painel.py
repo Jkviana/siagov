@@ -15,7 +15,7 @@ st.set_page_config(
     page_title="SIAGOV",
     page_icon="datasets/siagov.ico",
     layout="wide",
-    base="light",
+    #base="light",
     #initial_sidebar_state="collapsed"
 )
 
