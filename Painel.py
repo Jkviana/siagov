@@ -12,9 +12,10 @@ import webbrowser
 import base64
 
 st.set_page_config(
-    page_title="Empenhos",
+    page_title="SIAGOV",
     page_icon="datasets/siagov.ico",
     layout="wide",
+    base="light",
     #initial_sidebar_state="collapsed"
 )
 
