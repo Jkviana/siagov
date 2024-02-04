@@ -62,4 +62,20 @@ def add_logo(png_file):
 
 add_logo("datasets/siagovlogonovo.png")
 
-st.sidebar.image("datasets/GovPBT.png")
+st.sidebar.image("datasets/GovPBT.png") #, width = 200)
+st.sidebar.divider()
+
+#ano = st.sidebar.selectbox('Execício:', [2023, 2024])
+
+dataatual = date.today()
+if 'ano' not in st.session_state:
+    st.session_state.ano = dataatual.year
+if 'mes' not in st.session_state:
+    st.session_state.mes = dataatual.month
+
+mes  = st.session_state.mes
+ano = st.session_state.ano
+st.sidebar.text(f'{mes}, {ano}' )
+st.sidebar.divider()
+st.sidebar.markdown('Desenvolvido por [SIAGOV](https://siagov.com.br)')
+st.sidebar.text('S712')

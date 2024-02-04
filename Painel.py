@@ -63,12 +63,19 @@ def add_logo(png_file):
 add_logo("datasets/siagovlogonovo.png")
 
 #st.sidebar.image("datasets/siagovlogonovo.png")
-
-
-setor = 270001
+ano = st.sidebar.selectbox('Execício:', [2023, 2024], index=1)
 dataatual = date.today()
-mes = 9 #dataatual.month - 1
-ano = dataatual.year
+if ano == dataatual.year:
+    mes = dataatual.month
+elif ano < dataatual.year:
+    mes = 12
+st.session_state.ano = ano
+st.session_state.mes = mes
+setor = 270001
+st.sidebar.text(f'{mes}, {ano}' )
+#dataatual = date.today()
+#mes = 9 #dataatual.month - 1
+#ano = dataatual.year
 
 #st.header("Dados de Empenho")
 
