@@ -5,11 +5,21 @@
 .stButton > button > div > p:hover{
     color: blue;
 } 
-
-header{
-    visibility: hidden;
+.st-emotion-cache-7ym5gk:hover{
+    color: blue;
 }
 
-.viewerBadge_link__qRIco{
+header{
+    display: none;
+    visibility: hidden;
+
+}
+
+div.viewerBadge_link__qRIco{
+    display: none;
+    visibility: hidden;
+}
+.styles_stateContainer__CelYF{
+    display: none;
     visibility: hidden;
 }
