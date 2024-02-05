@@ -14,7 +14,6 @@ st.set_page_config(
     page_title="SIAGOV",
     page_icon="datasets/siagov.ico",
     layout="wide",
-    #base="light",
     initial_sidebar_state="collapsed",
     
 )
@@ -76,7 +75,14 @@ add_logo("datasets/siagovlogonovo.png")
 # st.session_state.mes = mes
 # setor = 270001
 # st.sidebar.text(f'{mes}, {ano}' )
+
+#### FOOTER SIDEBAR #####
+if st.sidebar.button('Limpar Cache'):
+     st.cache_data.clear()
+st.sidebar.divider()
 st.sidebar.markdown('Desenvolvido por [SIAGOV](https://siagov.com.br)')
+st.sidebar.text('S712')
+
 #dataatual = date.today()
 #mes = 9 #dataatual.month - 1
 #ano = dataatual.year
@@ -90,22 +96,22 @@ st.sidebar.markdown('Desenvolvido por [SIAGOV](https://siagov.com.br)')
 
 ### MENU SUPERIOR
 st.image("datasets/siagovlogonovo.png", width=300)
-st.subheader('', divider='blue')
-col1, col2, col3, col4, col5, col6 = st.columns([2,2,2,2,2,6])
-with col1:
-    btn1 = st.button('Ações de Governo')
-with col2:
-    btn2 = st.button('Lista de Empenhos')
-with col3:
-    btn3 = st.button('Lista de Contratos')
-with col4:
-    btn = st.button("Acessar Dados PB")
-    if btn:
-        webbrowser.open_new_tab("https://dados.pb.gov.br/")
-with col5:
-    btn4 = st.button('Sobre')
-with col6:
-    st.write('')
+# st.subheader('', divider='blue')
+# col1, col2, col3, col4, col5, col6 = st.columns([2,2,2,2,2,6])
+# with col1:
+#     btn1 = st.button('Ações de Governo')
+# with col2:
+#     btn2 = st.button('Lista de Empenhos')
+# with col3:
+#     btn3 = st.button('Lista de Contratos')
+# with col4:
+#     btn = st.button("Acessar Dados PB")
+#     if btn:
+#         webbrowser.open_new_tab("https://dados.pb.gov.br/")
+# with col5:
+#     btn4 = st.button('Sobre')
+# with col6:
+#     st.write('')
 st.subheader('', divider='blue')
 
 ################# Style Metrics ###############3
@@ -292,7 +298,7 @@ st.subheader('', divider='blue')
 ################  2023  ############
 
 ano = 2023
-mes = 12
+mes = 13
 ### Carga de dados ###
 @st.cache_data
 def load_empOri1():
@@ -382,33 +388,9 @@ contTotalEmp = sum(contOriginal,contSup)
 contTotalEmpText = "{:,.0f}".format(float(contTotalEmp)).replace(",", "X").replace(".", ",").replace("X", ".")
 contTotalAnu = sum(contEmpAnu,contPagAnu)
 contTotalAnuText = "{:,.0f}".format(float(contTotalAnu)).replace(",", "X").replace(".", ",").replace("X", ".")
-if mes == 1:
-    mesText = "janeiro"
-elif mes == 2:
-    mesText = "fevereiro"
-elif mes == 3:
-    mesText = "março"
-elif mes == 4:
-    mesText = "abril"
-elif mes == 5:
-    mesText = "maio"
-elif mes == 6:
-    mesText = "junho"
-elif mes == 7:
-    mesText = "julho"
-elif mes == 8:
-    mesText = "agosto"
-elif mes == 9:
-    mesText = "setembro"
-elif mes == 10:
-    mesText = "outubro"
-elif mes == 11:
-    mesText = "novembro"
-elif mes == 12:
-    mesText = "dezembro"
 
 st.subheader(f'Consolidação dos Empenhos do Governo da Paraíba em {ano}') # , divider='violet') #blue, green, orange, red, violet, gray, grey, rainbow   
-st.write(f'De janeiro a {mesText} de {ano} foram empenhados de __RS {valorTotalEmpenhado}__ com a efetivação de *{contTotalEmpText}* lançamentos de empenhos e suplementações.\
+st.write(f'De janeiro a dezembro de {ano} foram empenhados de __RS {valorTotalEmpenhado}__ com a efetivação de *{contTotalEmpText}* lançamentos de empenhos e suplementações.\
     No mesmo período foram cancelados __RS{valorTotalAnulado}__ em *{contTotalAnuText}* registros de anulação de empenhos e anulação de autorização de pagamentos. \
 ')
 
@@ -422,6 +404,7 @@ col4.metric(label="Anulação de Pagamentos (em milhões)", value=f"{valor_realP
 
 st.subheader('', divider='blue')
 
+###### PARA A CARGA DOS ARQUIVOS ########
 # arquivo = "empenho_anulacao"
 # col1, col2 = st.columns([0.5, 4])
 # with col2:
