@@ -245,31 +245,31 @@ contTotalEmp = sum(contOriginal,contSup)
 contTotalEmpText = "{:,.0f}".format(float(contTotalEmp)).replace(",", "X").replace(".", ",").replace("X", ".")
 contTotalAnu = sum(contEmpAnu,contPagAnu)
 contTotalAnuText = "{:,.0f}".format(float(contTotalAnu)).replace(",", "X").replace(".", ",").replace("X", ".")
-match mes:
-     case 1:
-          mesText = "janeiro"
-     case 2:
-          mesText = "fevereiro"
-     case 3:
-          mesText = "março"
-     case 4:
-          mesText = "abril"
-     case 5:
-          mesText = "maio"
-     case 6:
-          mesText = "junho"
-     case 7:
-          mesText = "julho"
-     case 8:
-          mesText = "agosto"
-     case 9:
-          mesText = "setembro"
-     case 10:
-          mesText = "outubro"
-     case 11:
-          mesText = "novembro"
-     case 12:
-          mesText = "dezembro"
+
+if mes == 1:
+    mesText = "janeiro"
+elif mes == 2:
+    mesText = "fevereiro"
+elif mes == 3:
+    mesText = "março"
+elif mes == 4:
+    mesText = "abril"
+elif mes == 5:
+    mesText = "maio"
+elif mes == 6:
+    mesText = "junho"
+elif mes == 7:
+    mesText = "julho"
+elif mes == 8:
+    mesText = "agosto"
+elif mes == 9:
+    mesText = "setembro"
+elif mes == 10:
+    mesText = "outubro"
+elif mes == 11:
+    mesText = "novembro"
+elif mes == 12:
+    mesText = "dezembro"
 
 st.subheader(f'Consolidação dos Empenhos do Governo da Paraíba em {ano}') # , divider='violet') #blue, green, orange, red, violet, gray, grey, rainbow   
 st.write(f'Até {mesText} de {ano} foram empenhados mais de __RS {valorTotalEmpenhado}__ com a efetivação de *{contTotalEmpText}* lançamentos de empenhos e suplementações.\
@@ -378,31 +378,30 @@ contTotalEmp = sum(contOriginal,contSup)
 contTotalEmpText = "{:,.0f}".format(float(contTotalEmp)).replace(",", "X").replace(".", ",").replace("X", ".")
 contTotalAnu = sum(contEmpAnu,contPagAnu)
 contTotalAnuText = "{:,.0f}".format(float(contTotalAnu)).replace(",", "X").replace(".", ",").replace("X", ".")
-match mes:
-     case 1:
-          mesText = "janeiro"
-     case 2:
-          mesText = "fevereiro"
-     case 3:
-          mesText = "março"
-     case 4:
-          mesText = "abril"
-     case 5:
-          mesText = "maio"
-     case 6:
-          mesText = "junho"
-     case 7:
-          mesText = "julho"
-     case 8:
-          mesText = "agosto"
-     case 9:
-          mesText = "setembro"
-     case 10:
-          mesText = "outubro"
-     case 11:
-          mesText = "novembro"
-     case 12:
-          mesText = "dezembro"
+if mes == 1:
+    mesText = "janeiro"
+elif mes == 2:
+    mesText = "fevereiro"
+elif mes == 3:
+    mesText = "março"
+elif mes == 4:
+    mesText = "abril"
+elif mes == 5:
+    mesText = "maio"
+elif mes == 6:
+    mesText = "junho"
+elif mes == 7:
+    mesText = "julho"
+elif mes == 8:
+    mesText = "agosto"
+elif mes == 9:
+    mesText = "setembro"
+elif mes == 10:
+    mesText = "outubro"
+elif mes == 11:
+    mesText = "novembro"
+elif mes == 12:
+    mesText = "dezembro"
 
 st.subheader(f'Consolidação dos Empenhos do Governo da Paraíba em {ano}') # , divider='violet') #blue, green, orange, red, violet, gray, grey, rainbow   
 st.write(f'De janeiro a {mesText} de {ano} foram empenhados de __RS {valorTotalEmpenhado}__ com a efetivação de *{contTotalEmpText}* lançamentos de empenhos e suplementações.\
