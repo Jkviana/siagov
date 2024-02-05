@@ -15,8 +15,12 @@ st.set_page_config(
     page_icon="datasets/siagov.ico",
     layout="wide",
     #base="light",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
+    
 )
+
+with open('styles.css') as fcss:
+    st.markdown(f"<style>{fcss.read()}</style>", unsafe_allow_html=True)
 
 #@st.cache(allow_output_mutation=True)
 def get_base64_of_bin_file(png_file):

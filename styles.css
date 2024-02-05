@@ -1,0 +1,15 @@
+.stButton > button:hover{
+    border-color: blue;
+}
+
+.stButton > button > div > p:hover{
+    color: blue;
+} 
+
+header{
+    visibility: hidden;
+}
+
+.viewerBadge_link__qRIco{
+    visibility: hidden;
+}
