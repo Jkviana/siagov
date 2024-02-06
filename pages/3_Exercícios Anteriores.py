@@ -139,16 +139,27 @@ def load_pagAnu():
 #st.subheader('`Empenhos Originários`')
 totEmpOrig = load_empOri()
 totEmpOrig["CODIGO_MODALIDADE_LICITACAO"] = totEmpOrig["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+totEmpOrig["CODIGO_ACAO"] = totEmpOrig["CODIGO_ACAO"].fillna(0)
+totEmpOrig["CODIGO_FONTE_RECURSO"] = totEmpOrig["CODIGO_FONTE_RECURSO"].fillna(0)
+totEmpOrig["CODIGO_ITEM_DESPESA"] = totEmpOrig["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.dataframe(totEmpOrig)
 st.session_state["orig"] = totEmpOrig
 #with tab2:
 #st.subheader('`Empenhos Suplementação`')
 totEmpSup = load_empSup()
+totEmpSup["CODIGO_MODALIDADE_LICITACAO"] = totEmpSup["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+totEmpSup["CODIGO_ACAO"] = totEmpSup["CODIGO_ACAO"].fillna(0)
+totEmpSup["CODIGO_FONTE_RECURSO"] = totEmpSup["CODIGO_FONTE_RECURSO"].fillna(0)
+totEmpSup["CODIGO_ITEM_DESPESA"] = totEmpSup["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.write(totEmpSup)
 st.session_state["sup"] = totEmpSup
 #with tab3:
 #st.subheader('`Empenhos Anulações`')
 totEmpAnu = load_empAnu()
+totEmpAnu["CODIGO_MODALIDADE_LICITACAO"] = totEmpAnu["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+totEmpAnu["CODIGO_ACAO"] = totEmpAnu["CODIGO_ACAO"].fillna(0)
+totEmpAnu["CODIGO_FONTE_RECURSO"] = totEmpAnu["CODIGO_FONTE_RECURSO"].fillna(0)
+totEmpAnu["CODIGO_ITEM_DESPESA"] = totEmpAnu["CODIGO_ITEM_DESPESA"].fillna(0)
 totEmpAnu['VALOR_EMPENHO'] = -totEmpAnu['VALOR_EMPENHO']
 #st.write(totEmpAnu)
 st.session_state["anuE"] = totEmpAnu
@@ -187,6 +198,7 @@ codNatDespE = st.sidebar.multiselect("Código Natureza da Despesa", sorted(totEm
 codItemDespE = st.sidebar.multiselect("Código Item da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")["CODIGO_ITEM_DESPESA"].unique()), placeholder="Seleção Opcional")
 
 st.sidebar.divider()
+
 #st.sidebar.caption('Filtros de Combinação')
 #codAcao = st.sidebar.multiselect("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
 #codFonte = st.sidebar.multiselect("Código Fonte de Recurso", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_FONTE_RECURSO"].unique()), placeholder="Seleção Opcional")
@@ -197,15 +209,29 @@ st.sidebar.divider()
 # st.write(codItemDesp)
 if codAcaoE != [] and codFonteE != [] and codNatDespE != [] and codItemDespE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
+     consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
+     consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
+     consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
 elif codAcaoE != [] and codFonteE != [] and codNatDespE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
+     consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
+     consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
+     consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
 elif codAcaoE != [] and codFonteE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
+     consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
+     consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
+     consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
 elif codAcaoE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
+     consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
+     consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
+     consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
 else:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")
-     
+     consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")
+     consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")
+     consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
 
 if st.sidebar.button('Limpar Cache'):
      st.cache_resource.clear()
@@ -220,7 +246,15 @@ st.header(f"{elementoFiltro['NOME_UNIDADE_GESTORA']}", divider='blue')
 st.caption(f'Dados de janeiro a dezembro de {ano}')
 #st.write(st.session_state["orig"].query((f"CODIGO_UNIDADE_GESTORA == {ugs}")))
 
-st.dataframe(consulta)
+tab1, tab2, tab3, tab4 = st.tabs(['`Empenhos Originais`', '`Empenhos Suplementares`', '`Anulação de Empenhos`', '`Anulação de Autorização de Pagamento`'])
+with tab1:
+     st.dataframe(consulta)
+with tab2:
+     st.dataframe(consultaSupl)
+with tab3:
+     st.dataframe(consultaEmpAnu)
+with tab4:
+     st.dataframe(consultaPagAnu)
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
@@ -241,9 +275,11 @@ st.divider()
 st.subheader('Municípios Atendidos')
 colm1, colm2 = st.columns([1,3])
 municipios = consulta[["NOME_MUNICIPIO", "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
+#"{:,.0f} Lançamentos".format(float(contOriginal)).replace(",", "X").replace(".", ",").replace("X", ".")
 with colm1:
     chart_municip = st.dataframe(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
 chart = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"], as_index=True).sum('VALOR_EMPENHO'))
+st.caption('Inclui apenas Empenhos Originais')
 #cht = chart.plot.barh(x="NOME_MUNICIPIO" , y='VALOR_EMPENHO')
 with colm2:
     st.bar_chart(chart.sort_values('VALOR_EMPENHO', ascending=False)["VALOR_EMPENHO"])#.plot.bar())
