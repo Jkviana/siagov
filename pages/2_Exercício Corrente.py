@@ -83,7 +83,7 @@ if dataatual.year > ano:
         mes = mes+1
 
 @st.cache_resource
-def load_empOri():
+def load_empOri2024():
     empOrigt = []
     for i in range (1, mes):
         arq = f"files/empenho_original{ano}mes{i}.gzip"
@@ -96,7 +96,7 @@ def load_empOri():
     return empOrigr
 
 @st.cache_resource
-def load_empSup():
+def load_empSup2024():
     empSupt = []
     for i in range (1, mes):
         arq = f"files/empenho_suplementacao{ano}mes{i}.gzip"
@@ -109,7 +109,7 @@ def load_empSup():
     return empSupr
 
 @st.cache_resource
-def load_empAnu():
+def load_empAnu2024():
     empAnut = []
     for i in range (1, mes):
         arq = f"files/empenho_anulacao{ano}mes{i}.gzip"
@@ -122,7 +122,7 @@ def load_empAnu():
     return empAnur
 
 @st.cache_resource
-def load_pagAnu():
+def load_pagAnu2024():
     pagAnut = []
     for i in range (1, mes):
         arq = f"files/pagamento_anulacao{ano}mes{i}.gzip"
@@ -138,35 +138,35 @@ def load_pagAnu():
 #tab1, tab2, tab3, tab4 = st.tabs(['`Empenhos Originários`', '`Empenhos Suplementação`','`Empenhos Anulações`','`Pagamento Anulações`'])
 #with tab1:
 #st.subheader('`Empenhos Originários`')
-totEmpOrig = load_empOri()
+totEmpOrig = load_empOri2024()
 totEmpOrig["CODIGO_MODALIDADE_LICITACAO"] = totEmpOrig["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
 totEmpOrig["CODIGO_ACAO"] = totEmpOrig["CODIGO_ACAO"].fillna(0)
 totEmpOrig["CODIGO_FONTE_RECURSO"] = totEmpOrig["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpOrig["CODIGO_ITEM_DESPESA"] = totEmpOrig["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.dataframe(totEmpOrig)
-st.session_state["orig"] = totEmpOrig
+st.session_state["orig2024"] = totEmpOrig
 #with tab2:
 #st.subheader('`Empenhos Suplementação`')
-totEmpSup = load_empSup()
+totEmpSup = load_empSup2024()
 totEmpSup["CODIGO_MODALIDADE_LICITACAO"] = totEmpSup["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
 totEmpSup["CODIGO_ACAO"] = totEmpSup["CODIGO_ACAO"].fillna(0)
 totEmpSup["CODIGO_FONTE_RECURSO"] = totEmpSup["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpSup["CODIGO_ITEM_DESPESA"] = totEmpSup["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.write(totEmpSup)
-st.session_state["sup"] = totEmpSup
+st.session_state["sup2024"] = totEmpSup
 #with tab3:
 #st.subheader('`Empenhos Anulações`')
-totEmpAnu = load_empAnu()
+totEmpAnu = load_empAnu2024()
 totEmpAnu["CODIGO_MODALIDADE_LICITACAO"] = totEmpAnu["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
 totEmpAnu["CODIGO_ACAO"] = totEmpAnu["CODIGO_ACAO"].fillna(0)
 totEmpAnu["CODIGO_FONTE_RECURSO"] = totEmpAnu["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpAnu["CODIGO_ITEM_DESPESA"] = totEmpAnu["CODIGO_ITEM_DESPESA"].fillna(0)
 totEmpAnu['VALOR_EMPENHO'] = -totEmpAnu['VALOR_EMPENHO']
 #st.write(totEmpAnu)
-st.session_state["anuE"] = totEmpAnu
+st.session_state["anuE2024"] = totEmpAnu
 #with tab4:
 #st.subheader('`Pagamento Anulações`')
-totPagAnu = load_pagAnu()
+totPagAnu = load_pagAnu2024()
 colunas = ['CODIGO_UNIDADE_GESTORA', 'NUMERO_EMPENHO', 'VALOR_EMPENHO','DATA_DOCUMENTO']
 totPagAnu['VALOR_EMPENHO'] = -totPagAnu['VALOR_DOCUMENTO']
 totPagAnu['DATA_DOCUMENTO'] = pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
@@ -175,7 +175,7 @@ totPagAnu['DATA_DOCUMENTO'] = pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])#, form
 totPagAnu['MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month_name()
 totPagAnu['NUM_MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month #.dt.month_name()
 #st.write(totPagAnu)
-st.session_state["anuP"] = totPagAnu
+st.session_state["anuP2024"] = totPagAnu
 
 ##############################
 
