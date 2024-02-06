@@ -143,7 +143,7 @@ totEmpOrig["CODIGO_ACAO"] = totEmpOrig["CODIGO_ACAO"].fillna(0)
 totEmpOrig["CODIGO_FONTE_RECURSO"] = totEmpOrig["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpOrig["CODIGO_ITEM_DESPESA"] = totEmpOrig["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.dataframe(totEmpOrig)
-st.session_state["orig"] = totEmpOrig
+#st.session_state["orig"] = totEmpOrig
 #with tab2:
 #st.subheader('`Empenhos Suplementação`')
 totEmpSup = load_empSup()
@@ -152,7 +152,7 @@ totEmpSup["CODIGO_ACAO"] = totEmpSup["CODIGO_ACAO"].fillna(0)
 totEmpSup["CODIGO_FONTE_RECURSO"] = totEmpSup["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpSup["CODIGO_ITEM_DESPESA"] = totEmpSup["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.write(totEmpSup)
-st.session_state["sup"] = totEmpSup
+#st.session_state["sup"] = totEmpSup
 #with tab3:
 #st.subheader('`Empenhos Anulações`')
 totEmpAnu = load_empAnu()
@@ -162,7 +162,7 @@ totEmpAnu["CODIGO_FONTE_RECURSO"] = totEmpAnu["CODIGO_FONTE_RECURSO"].fillna(0)
 totEmpAnu["CODIGO_ITEM_DESPESA"] = totEmpAnu["CODIGO_ITEM_DESPESA"].fillna(0)
 totEmpAnu['VALOR_EMPENHO'] = -totEmpAnu['VALOR_EMPENHO']
 #st.write(totEmpAnu)
-st.session_state["anuE"] = totEmpAnu
+#st.session_state["anuE"] = totEmpAnu
 #with tab4:
 #st.subheader('`Pagamento Anulações`')
 totPagAnu = load_pagAnu()
@@ -174,7 +174,7 @@ totPagAnu['DATA_DOCUMENTO'] = pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])#, form
 totPagAnu['MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month_name()
 totPagAnu['NUM_MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month #.dt.month_name()
 #st.write(totPagAnu)
-st.session_state["anuP"] = totPagAnu
+#st.session_state["anuP"] = totPagAnu
 
 ##############################
 
@@ -276,8 +276,13 @@ st.subheader('Municípios Atendidos')
 colm1, colm2 = st.columns([1,3])
 municipios = consulta[["NOME_MUNICIPIO", "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
 #"{:,.0f} Lançamentos".format(float(contOriginal)).replace(",", "X").replace(".", ",").replace("X", ".")
+def formatar(valor):
+     return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
+
 with colm1:
-    chart_municip = st.dataframe(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+    chart_municip = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+    chart_municip['VALOR_EMPENHO'] = chart_municip['VALOR_EMPENHO'].apply(formatar)
+    st.dataframe(chart_municip)
 chart = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"], as_index=True).sum('VALOR_EMPENHO'))
 st.caption('Inclui apenas Empenhos Originais')
 #cht = chart.plot.barh(x="NOME_MUNICIPIO" , y='VALOR_EMPENHO')

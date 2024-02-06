@@ -303,8 +303,13 @@ st.subheader('Municípios Atendidos')
 colm1, colm2 = st.columns([1,3])
 municipios = consulta[["NOME_MUNICIPIO", "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
 #"{:,.0f} Lançamentos".format(float(contOriginal)).replace(",", "X").replace(".", ",").replace("X", ".")
+def formatar(valor):
+     return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
+
 with colm1:
-    chart_municip = st.dataframe(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+    chart_municip = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+    chart_municip['VALOR_EMPENHO'] = chart_municip['VALOR_EMPENHO'].apply(formatar)
+    st.dataframe(chart_municip)
 chart = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"], as_index=True).sum('VALOR_EMPENHO'))
 st.caption('Inclui apenas Empenhos Originais')
 #cht = chart.plot.barh(x="NOME_MUNICIPIO" , y='VALOR_EMPENHO')
