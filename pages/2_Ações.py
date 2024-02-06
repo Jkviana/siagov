@@ -9,6 +9,8 @@ from datetime import date
 import webbrowser
 import os
 import base64
+#import matplotlib.pyplot as plt
+
 
 st.set_page_config(
     page_title="SIAGOV",
@@ -222,8 +224,14 @@ with col4:
 st.divider()
 
 st.subheader('Municípios Atendidos')
+colm1, colm2 = st.columns([1,3])
 municipios = consulta[["NOME_MUNICIPIO", "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
-st.dataframe(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+with colm1:
+    chart_municip = st.dataframe(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+chart = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"], as_index=True).sum('VALOR_EMPENHO'))
+#cht = chart.plot.barh(x="NOME_MUNICIPIO" , y='VALOR_EMPENHO')
+with colm2:
+    st.bar_chart(chart.sort_values('VALOR_EMPENHO', ascending=False)["VALOR_EMPENHO"])#.plot.bar())
 
 st.divider()
 
