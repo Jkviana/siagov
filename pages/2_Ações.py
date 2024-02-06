@@ -180,17 +180,32 @@ ugs = st.sidebar.selectbox("Código da Unidade Gestora", totEmpOrig["CODIGO_UNID
 licita = sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")["CODIGO_MODALIDADE_LICITACAO"].unique())
 modLicita = st.sidebar.multiselect("Código Modalidade Licitação", licita, default=licita, help="Escolha a modalidade de licitação disponível")
 st.sidebar.divider()
-codAcao = st.sidebar.multiselect("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
-codFonte = st.sidebar.multiselect("Código Fonte de Recurso", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_FONTE_RECURSO"].unique()), placeholder="Seleção Opcional")
-codNatDesp = st.sidebar.multiselect("Código Natureza da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_NATUREZA_DESPESA"].unique()), placeholder="Seleção Opcional")
-codItemDesp = st.sidebar.multiselect("Código Item da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ITEM_DESPESA"].unique()), placeholder="Seleção Opcional")
+#st.sidebar.caption('Filtros de Seleção')
+codAcaoE = st.sidebar.multiselect("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
+codFonteE = st.sidebar.multiselect("Código Fonte de Recurso", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} ")["CODIGO_FONTE_RECURSO"].unique()), placeholder="Seleção Opcional")
+codNatDespE = st.sidebar.multiselect("Código Natureza da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")["CODIGO_NATUREZA_DESPESA"].unique()), placeholder="Seleção Opcional")
+codItemDespE = st.sidebar.multiselect("Código Item da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")["CODIGO_ITEM_DESPESA"].unique()), placeholder="Seleção Opcional")
+
+st.sidebar.divider()
+#st.sidebar.caption('Filtros de Combinação')
+#codAcao = st.sidebar.multiselect("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
+#codFonte = st.sidebar.multiselect("Código Fonte de Recurso", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_FONTE_RECURSO"].unique()), placeholder="Seleção Opcional")
+#codNatDesp = st.sidebar.multiselect("Código Natureza da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_NATUREZA_DESPESA"].unique()), placeholder="Seleção Opcional")
+#codItemDesp = st.sidebar.multiselect("Código Item da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ITEM_DESPESA"].unique()), placeholder="Seleção Opcional")
 # st.write(codAcao)
 # st.write(codNatDesp)
 # st.write(codItemDesp)
-if codAcao == [] and codFonte == [] and codNatDesp == [] and codItemDesp == []:
-     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")
+if codAcaoE != [] and codFonteE != [] and codNatDespE != [] and codItemDespE != []:
+     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
+elif codAcaoE != [] and codFonteE != [] and codNatDespE != []:
+     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
+elif codAcaoE != [] and codFonteE != []:
+     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
+elif codAcaoE != []:
+     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
 else:
-     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & (CODIGO_ACAO in {codAcao} | CODIGO_FONTE_RECURSO in {codFonte} | CODIGO_NATUREZA_DESPESA in {codNatDesp} | CODIGO_ITEM_DESPESA in {codItemDesp})")
+     consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")
+     
 
 if st.sidebar.button('Limpar Cache'):
      st.cache_resource.clear()
