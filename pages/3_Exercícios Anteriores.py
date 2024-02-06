@@ -273,22 +273,32 @@ with col4:
 st.divider()
 
 st.subheader('Municípios Atendidos')
+st.caption('Inclui apenas Empenhos Originais')
+arq = f"files/regiao_municipio.csv"
+if os.path.isfile(arq):
+        regiaoMunicipio = pd.read_csv(arq, sep=';', encoding='UTF-8')#, compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
+
 colm1, colm2 = st.columns([1,3])
 municipios = consulta[["NOME_MUNICIPIO", "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
 #"{:,.0f} Lançamentos".format(float(contOriginal)).replace(",", "X").replace(".", ",").replace("X", ".")
 def formatar(valor):
      return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
 
+municipiosN = pd.merge(municipios, regiaoMunicipio, on="NOME_MUNICIPIO", how="outer")
+municipiosN["VALOR_EMPENHO"] = municipiosN["VALOR_EMPENHO"].fillna(0)
+
 with colm1:
     chart_municip = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
     chart_municip['VALOR_EMPENHO'] = chart_municip['VALOR_EMPENHO'].apply(formatar)
     st.dataframe(chart_municip)
 chart = pd.DataFrame(municipios.groupby(["NOME_MUNICIPIO"], as_index=True).sum('VALOR_EMPENHO'))
-st.caption('Inclui apenas Empenhos Originais')
 #cht = chart.plot.barh(x="NOME_MUNICIPIO" , y='VALOR_EMPENHO')
 with colm2:
     st.bar_chart(chart.sort_values('VALOR_EMPENHO', ascending=False)["VALOR_EMPENHO"])#.plot.bar())
 
+st.divider()
+st.subheader('Municípios Não Atendidos')
+st.dataframe(municipiosN[municipiosN["VALOR_EMPENHO"] == 0])
 st.divider()
 
 st.subheader('Fornecedores')

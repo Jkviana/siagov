@@ -1,0 +1,224 @@
+﻿CODIGO_MUNICIPIO;NOME_MUNICIPIO;TEXTO_NOME_MUNICIPIO;REGIAO;SEDE_REGIAO;IDH
+250060;ALHANDRA;Alhandra;01a Região;João Pessoa;0,582
+250180;BAYEUX;Bayeux;01a Região;João Pessoa;0,649
+250300;CAAPORA;Caaporã;01a Região;João Pessoa;0,602
+250320;CABEDELO;Cabedelo;01a Região;João Pessoa;0,748
+250460;CONDE;Conde;01a Região;João Pessoa;0,618
+250490;CRUZ DO ESPIRITO SANTO;Cruz do Espírito Santo;01a Região;João Pessoa;0,552
+250750;JOAO PESSOA;João Pessoa;01a Região;João Pessoa;0,763
+250860;LUCENA;Lucena;01a Região;João Pessoa;0,583
+250910;MARI;Mari;01a Região;João Pessoa;0,548
+251190;PITIMBU;Pitimbu;01a Região;João Pessoa;0,57
+251276;RIACHAO DO POCO;Riachão do Poço;01a Região;João Pessoa;0,555
+251370;SANTA RITA;Santa Rita;01a Região;João Pessoa;0,627
+251530;SAPE;Sapé;01a Região;João Pessoa;0,569
+251597;SOBRADO;Sobrado;01a Região;João Pessoa;0,573
+250050;ALAGOINHA;Alagoinha;02a Região;Guarabira;0,595
+250080;ARACAGI;Araçagi;02a Região;Guarabira;0,549
+250100;ARARUNA;Araruna;02a Região;Guarabira;0,567
+250150;BANANEIRAS;Bananeiras;02a Região;Guarabira;0,568
+250190;BELEM;Belém;02a Região;Guarabira;0,592
+250270;BORBOREMA;Borborema;02a Região;Guarabira;0,558
+250350;CACIMBA DE DENTRO;Cacimba de Dentro;02a Região;Guarabira;0,564
+250360;CAICARA;Caiçara;02a Região;Guarabira;0,592
+250415;CASSERENGUE;Casserengue;02a Região;Guarabira;0,514
+250520;CUITEGI;Cuitegi;02a Região;Guarabira;0,57
+250570;DONA INES;Dona Inês;02a Região;Guarabira;0,545
+250580;DUAS ESTRADAS;Duas Estradas;02a Região;Guarabira;0,603
+250630;GUARABIRA;Guarabira;02a Região;Guarabira;0,673
+250855;LOGRADOURO;Logradouro;02a Região;Guarabira;0,583
+250980;MULUNGU;Mulungu;02a Região;Guarabira;0,565
+251160;PILOES;Pilões;02a Região;Guarabira;0,56
+251170;PILOEZINHOS;Pilõezinhos;02a Região;Guarabira;0,564
+251180;PIRPIRITUBA;Pirpirituba;02a Região;Guarabira;0,595
+251274;RIACHAO;Riachão;02a Região;Guarabira;0,574
+251560;SERRA DA RAIZ;Serra da Raiz;02a Região;Guarabira;0,626
+251590;SERRARIA;Serraria;02a Região;Guarabira;0,547
+251593;SERTAOZINHO;Sertãozinho;02a Região;Guarabira;0,621
+251600;SOLANEA;Solânea;02a Região;Guarabira;0,595
+251640;TACIMA;Tacima;02a Região;Guarabira;0,551
+250030;ALAGOA GRANDE;Alagoa Grande;03a Região;Campina Grande;0,582
+250040;ALAGOA NOVA;Alagoa Nova;03a Região;Campina Grande;0,576
+250053;ALCANTIL;Alcantil;03a Região;Campina Grande;0,578
+250057;ALGODAO DE JANDAIRA;Algodão de Jandaíra;03a Região;Campina Grande;0,548
+250090;ARARA;Arara;03a Região;Campina Grande;0,548
+250110;AREIA;Areia;03a Região;Campina Grande;0,594
+250120;AREIAL;Areial;03a Região;Campina Grande;0,608
+250130;AROEIRAS;Aroeiras;03a Região;Campina Grande;0,548
+250135;ASSUNCAO;Assunção;03a Região;Campina Grande;0,609
+250157;BARRA DE SANTANA;Barra de Santana;03a Região;Campina Grande;0,567
+250170;BARRA DE SAO MIGUEL;Barra de São Miguel;03a Região;Campina Grande;0,572
+250215;BOA VISTA;Boa Vista;03a Região;Campina Grande;0,649
+250250;BOQUEIRAO;Boqueirão;03a Região;Campina Grande;0,607
+250310;CABACEIRAS;Cabaceiras;03a Região;Campina Grande;0,611
+250400;CAMPINA GRANDE;Campina Grande;03a Região;Campina Grande;0,72
+250435;CATURITE;Caturité;03a Região;Campina Grande;0,623
+250600;ESPERANCA;Esperança;03a Região;Campina Grande;0,623
+250610;FAGUNDES;Fagundes;03a Região;Campina Grande;0,56
+250625;GADO BRAVO;Gado Bravo;03a Região;Campina Grande;0,513
+250770;JUAZEIRINHO;Juazeirinho;03a Região;Campina Grande;0,567
+250830;LAGOA SECA;Lagoa Seca;03a Região;Campina Grande;0,627
+250850;LIVRAMENTO;Livramento;03a Região;Campina Grande;0,566
+250920;MASSARANDUBA;Massaranduba;03a Região;Campina Grande;0,567
+250933;MATINHAS;Matinhas;03a Região;Campina Grande;0,541
+250950;MONTADAS;Montadas;03a Região;Campina Grande;0,59
+250990;NATUBA;Natuba;03a Região;Campina Grande;0,541
+251050;OLIVEDOS;Olivedos;03a Região;Campina Grande;0,603
+251200;POCINHOS;Pocinhos;03a Região;Campina Grande;0,591
+251240;PUXINANA;Puxinanã;03a Região;Campina Grande;0,592
+251250;QUEIMADAS;Queimadas;03a Região;Campina Grande;0,608
+251270;REMIGIO;Remígio;03a Região;Campina Grande;0,607
+251278;RIACHO DE SANTO ANTONIO;Riacho de Santo Antônio;03a Região;Campina Grande;0,594
+251315;SANTA CECILIA;Santa Cecília;03a Região;Campina Grande;0,525
+251394;SAO DOMINGOS DO CARIRI;São Domingos do Cariri;03a Região;Campina Grande;0,589
+251510;SAO SEBASTIAO DE LAGOA DE ROCA;São Sebastião de Lagoa de Roça;03a Região;Campina Grande;0,594
+251610;SOLEDADE;Soledade;03a Região;Campina Grande;0,616
+251650;TAPEROA;Taperoá;03a Região;Campina Grande;0,578
+251675;TENORIO;Tenório;03a Região;Campina Grande;0,581
+251700;UMBUZEIRO;Umbuzeiro;03a Região;Campina Grande;0,584
+250153;BARAUNA;Baraúna;04a Região;Cuité;0,558
+250160;BARRA DE SANTA ROSA;Barra de Santa Rosa;04a Região;Cuité;0,562
+250500;CUBATI;Cubati;04a Região;Cuité;0,566
+250510;CUITE;Cuité;04a Região;Cuité;0,591
+250535;DAMIAO;Damião;04a Região;Cuité;0,521
+250620;FREI MARTINHO;Frei Martinho;04a Região;Cuité;0,641
+251010;NOVA FLORESTA;Nova Floresta;04a Região;Cuité;0,601
+251030;NOVA PALMEIRA;Nova Palmeira;04a Região;Cuité;0,595
+251110;PEDRA LAVRADA;Pedra Lavrada;04a Região;Cuité;0,574
+251140;PICUI;Picuí;04a Região;Cuité;0,608
+251540;SERIDO;Seridó;04a Região;Cuité;0,555
+251615;SOSSEGO;Sossêgo;04a Região;Cuité;0,573
+250073;AMPARO;Amparo;05a Região;Monteiro;0,606
+250390;CAMALAU;Camalaú;05a Região;Monteiro;0,567
+250407;CARAUBAS;Caraúbas;05a Região;Monteiro;0,585
+250470;CONGO;Congo;05a Região;Monteiro;0,631
+250485;COXIXOLA;Coxixola;05a Região;Monteiro;0,641
+250650;GURJAO;Gurjão;05a Região;Monteiro;0,625
+250970;MONTEIRO;Monteiro;05a Região;Monteiro;0,628
+251060;OURO VELHO;Ouro Velho;05a Região;Monteiro;0,614
+251065;PARARI;Parari;05a Região;Monteiro;0,584
+251220;PRATA;Prata;05a Região;Monteiro;0,608
+251385;SANTO ANDRE;Santo André;05a Região;Monteiro;0,6
+251400;SAO JOAO DO CARIRI;São João do Cariri;05a Região;Monteiro;0,622
+251410;SAO JOAO DO TIGRE;São João do Tigre;05a Região;Monteiro;0,552
+251480;SAO JOSE DOS CORDEIROS;São José dos Cordeiros;05a Região;Monteiro;0,556
+251520;SAO SEBASTIAO DO UMBUZEIRO;São Sebastião do Umbuzeiro;05a Região;Monteiro;0,581
+251550;SERRA BRANCA;Serra Branca;05a Região;Monteiro;0,628
+251630;SUME;Sumé;05a Região;Monteiro;0,627
+251740;ZABELE;Zabelê;05a Região;Monteiro;0,623
+250115;AREIA DE BARAUNAS;Areia de Baraúnas;06a Região;Patos;0,562
+250340;CACIMBA DE AREIA;Cacimba de Areia;06a Região;Patos;0,596
+250355;CACIMBAS;Cacimbas;06a Região;Patos;0,523
+250420;CATINGUEIRA;Catingueira;06a Região;Patos;0,574
+250540;DESTERRO;Desterro;06a Região;Patos;0,58
+250590;EMAS;Emas;06a Região;Patos;0,595
+250780;JUNCO DO SERIDO;Junco do Seridó;06a Região;Patos;0,617
+250870;MAE D'AGUA;Mãe D'Água;06a Região;Patos;0,542
+250880;MALTA;Malta;06a Região;Patos;0,642
+250939;MATUREIA;Maturéia;06a Região;Patos;0,572
+251070;PASSAGEM;Passagem;06a Região;Patos;0,62
+251080;PATOS;Patos;06a Região;Patos;0,701
+251260;QUIXABA;Quixaba;06a Região;Patos;0,622
+251300;SALGADINHO;Salgadinho;06a Região;Patos;0,563
+251340;SANTA LUZIA;Santa Luzia;06a Região;Patos;0,682
+251380;SANTA TERESINHA;Santa Terezinha;06a Região;Patos;0,627
+251440;SAO JOSE DE ESPINHARAS;São José de Espinharas;06a Região;Patos;0,577
+251460;SAO JOSE DO BONFIM;São José do Bonfim;06a Região;Patos;0,578
+251470;SAO JOSE DO SABUGI;São José do Sabugi;06a Região;Patos;0,617
+251490;SAO MAMEDE;São Mamede;06a Região;Patos;0,641
+251670;TEIXEIRA;Teixeira;06a Região;Patos;0,605
+251710;VARZEA;Várzea;06a Região;Patos;0,707
+250020;AGUIAR;Aguiar;07a Região;Itaporanga;0,597
+250210;BOA VENTURA;Boa Ventura;07a Região;Itaporanga;0,599
+250440;CONCEICAO;Conceição;07a Região;Itaporanga;0,592
+250480;COREMAS;Coremas;07a Região;Itaporanga;0,617
+250530;CURRAL VELHO;Curral Velho;07a Região;Itaporanga;0,606
+250560;DIAMANTE;Diamante;07a Região;Itaporanga;0,593
+250660;IBIARA;Ibiara;07a Região;Itaporanga;0,586
+250260;IGARACY;Igaracy;07a Região;Itaporanga;0,61
+250700;ITAPORANGA;Itaporanga;07a Região;Itaporanga;0,615
+251020;NOVA OLINDA;Nova Olinda;07a Região;Itaporanga;0,573
+251040;OLHO D'AGUA;Olho D'Água;07a Região;Itaporanga;0,572
+251100;PEDRA BRANCA;Pedra Branca;07a Região;Itaporanga;0,599
+251130;PIANCO;Piancó;07a Região;Itaporanga;0,621
+251335;SANTA INES;Santa Inês;07a Região;Itaporanga;0,572
+251350;SANTANA DE MANGUEIRA;Santana de Mangueira;07a Região;Itaporanga;0,535
+251360;SANTANA DOS GARROTES;Santana dos Garrotes;07a Região;Itaporanga;0,594
+251430;SAO JOSE DE CAIANA;São José de Caiana;07a Região;Itaporanga;0,565
+251570;SERRA GRANDE;Serra Grande;07a Região;Itaporanga;0,586
+250200;BELEM DO BREJO DO CRUZ;Belém do Brejo do Cruz;08a Região;Catolé do Rocha;0,578
+250230;BOM SUCESSO;Bom Sucesso;08a Região;Catolé do Rocha;0,592
+250280;BREJO DO CRUZ;Brejo do Cruz;08a Região;Catolé do Rocha;0,597
+250290;BREJO DOS SANTOS;Brejo dos Santos;08a Região;Catolé do Rocha;0,619
+250430;CATOLE DO ROCHA;Catolé do Rocha;08a Região;Catolé do Rocha;0,64
+250740;JERICO;Jericó;08a Região;Catolé do Rocha;0,603
+250937;MATO GROSSO;Mato Grosso;08a Região;Catolé do Rocha;0,565
+251280;RIACHO DOS CAVALOS;Riacho dos Cavalos;08a Região;Catolé do Rocha;0,568
+251390;SAO BENTO;São Bento;08a Região;Catolé do Rocha;0,58
+251465;SAO JOSE DO BREJO DO CRUZ;São José do Brejo do Cruz;08a Região;Catolé do Rocha;0,581
+250205;BERNARDINO BATISTA;Bernardino Batista;09a Região;Cajazeiras;0,558
+250220;BOM JESUS;Bom Jesus;09a Região;Cajazeiras;0,597
+250240;BONITO DE SANTA FE;Bonito de Santa Fé;09a Região;Cajazeiras;0,574
+250330;CACHOEIRA DOS INDIOS;Cachoeira dos Índios;09a Região;Cajazeiras;0,587
+250370;CAJAZEIRAS;Cajazeiras;09a Região;Cajazeiras;0,679
+250410;CARRAPATEIRA;Carrapateira;09a Região;Cajazeiras;0,603
+251365;SANTAREM;Joca Claudino;09a Região;Cajazeiras;0,579
+250960;MONTE HOREBE;Monte Horebe;09a Região;Cajazeiras;0,587
+251203;POCO DANTAS;Poço Dantas;09a Região;Cajazeiras;0,525
+251207;POCO DE JOSE DE MOURA;Poço de José de Moura;09a Região;Cajazeiras;0,612
+251330;SANTA HELENA;Santa Helena;09a Região;Cajazeiras;0,609
+250070;SAO JOAO DO RIO DO PEIXE;São João do Rio do Peixe;09a Região;Cajazeiras;0,608
+251450;SAO JOSE DE PIRANHAS;São José de Piranhas;09a Região;Cajazeiras;0,591
+251680;TRIUNFO;Triunfo;09a Região;Cajazeiras;0,609
+251690;UIRAUNA;Uiraúna;09a Região;Cajazeiras;0,636
+250840;LASTRO;Lastro;10a Região;Sousa;0,533
+250915;MARIZOPOLIS;Marizópolis;10a Região;Sousa;0,608
+251000;NAZAREZINHO;Nazarezinho;10a Região;Sousa;0,562
+251320;SANTA CRUZ;Santa Cruz;10a Região;Sousa;0,618
+251398;SAO FRANCISCO;São Francisco;10a Região;Sousa;0,58
+251420;SAO JOSE DA LAGOA TAPADA;São José da Lagoa Tapada;10a Região;Sousa;0,53
+251620;SOUSA;Sousa;10a Região;Sousa;0,668
+251720;VIEIROPOLIS;Vieirópolis;10a Região;Sousa;0,571
+250010;AGUA BRANCA;Água Branca;11a Região;Princesa Isabel;0,572
+250670;IMACULADA;Imaculada;11a Região;Princesa Isabel;0,557
+250800;JURU;Juru;11a Região;Princesa Isabel;0,57
+250900;MANAIRA;Manaíra;11a Região;Princesa Isabel;0,543
+251230;PRINCESA ISABEL;Princesa Isabel;11a Região;Princesa Isabel;0,606
+251455;SAO JOSE DE PRINCESA;São José de Princesa;11a Região;Princesa Isabel;0,565
+251660;TAVARES;Tavares;11a Região;Princesa Isabel;0,586
+250380;CALDAS BRANDAO;Caldas Brandão;12a Região;Itabaiana;0,568
+250640;GURINHEM;Gurinhém;12a Região;Itabaiana;0,556
+250680;INGA;Ingá;12a Região;Itabaiana;0,592
+250690;ITABAIANA;Itabaiana;12a Região;Itabaiana;0,613
+250720;ITATUBA;Itatuba;12a Região;Itabaiana;0,562
+250760;JUAREZ TAVORA;Juarez Távora;12a Região;Itabaiana;0,579
+250790;JURIPIRANGA;Juripiranga;12a Região;Itabaiana;0,548
+250940;MOGEIRO;Mogeiro;12a Região;Itabaiana;0,574
+251120;PEDRAS DE FOGO;Pedras de Fogo;12a Região;Itabaiana;0,59
+251150;PILAR;Pilar;12a Região;Itabaiana;0,579
+259999;RIACHAO DO BACAMARTE;Riachão do Bacamarte;12a Região;Itabaiana;0,553
+251310;SALGADO DE SAO FELIX;Salgado de São Félix;12a Região;Itabaiana;0,568
+251445;SAO JOSE DOS RAMOS;São José dos Ramos;12a Região;Itabaiana;0,541
+251500;SAO MIGUEL DE TAIPU;São Miguel de Taipu;12a Região;Itabaiana;0,548
+251580;SERRA REDONDA;Serra Redonda;12a Região;Itabaiana;0,57
+250077;APARECIDA;Aparecida;13a Região;Pombal;0,578
+250375;CAJAZEIRINHAS;Cajazeirinhas;13a Região;Pombal;0,55
+250450;CONDADO;Condado;13a Região;Pombal;0,594
+250810;LAGOA;Lagoa;13a Região;Pombal;0,563
+251090;PAULISTA;Paulista;13a Região;Pombal;0,587
+251210;POMBAL;Pombal;13a Região;Pombal;0,634
+251392;SAO BENTO DE POMBAL;São Bentinho;13a Região;Pombal;0,606
+251396;SAO DOMINGOS DE POMBAL;São Domingos de Pombal;13a Região;Pombal;0,548
+250550;VISTA SERRANA;Vista Serrana;13a Região;Pombal;0,566
+250140;BAIA DA TRAICAO;Baía da Traição;14a Região;Mamanguape;0,581
+250403;CAPIM;Capim;14a Região;Mamanguape;0,533
+250523;CUITE DE MAMANGUAPE;Cuité de Mamanguape;14a Região;Mamanguape;0,524
+250527;CURRAL DE CIMA;Curral de Cima;14a Região;Mamanguape;0,529
+250710;ITAPOROROCA;Itapororoca;14a Região;Mamanguape;0,564
+250730;JACARAU;Jacaraú;14a Região;Mamanguape;0,558
+250820;LAGOA DE DENTRO;Lagoa de Dentro;14a Região;Mamanguape;0,57
+250890;MAMANGUAPE;Mamanguape;14a Região;Mamanguape;0,585
+250905;MARCACAO;Marcação;14a Região;Mamanguape;0,529
+250930;MATARACA;Mataraca;14a Região;Mamanguape;0,536
+251272;PEDRO REGIO;Pedro Régis;14a Região;Mamanguape;0,542
+251290;RIO TINTO;Rio Tinto;14a Região;Mamanguape;0,585
