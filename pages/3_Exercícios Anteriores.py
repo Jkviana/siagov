@@ -208,9 +208,11 @@ ugs = st.sidebar.selectbox("Código da Unidade Gestora", totEmpOrig["CODIGO_UNID
 
 licita = sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")["CODIGO_MODALIDADE_LICITACAO"].unique())
 modLicita = st.sidebar.multiselect("Código Modalidade Licitação", licita, default=licita, help="Escolha a modalidade de licitação disponível")
+if modLicita == []:
+     modLicita = sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")["CODIGO_MODALIDADE_LICITACAO"].unique())
 st.sidebar.divider()
 #st.sidebar.caption('Filtros de Seleção')
-codAcaoE = st.sidebar.multiselect("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
+codAcaoE = st.sidebar.selectbox("Código da Ação", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita}")["CODIGO_ACAO"].unique()), placeholder="Seleção Opcional")
 codFonteE = st.sidebar.multiselect("Código Fonte de Recurso", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} ")["CODIGO_FONTE_RECURSO"].unique()), placeholder="Seleção Opcional")
 codNatDespE = st.sidebar.multiselect("Código Natureza da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")["CODIGO_NATUREZA_DESPESA"].unique()), placeholder="Seleção Opcional")
 codItemDespE = st.sidebar.multiselect("Código Item da Despesa", sorted(totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")["CODIGO_ITEM_DESPESA"].unique()), placeholder="Seleção Opcional")
@@ -225,22 +227,22 @@ st.sidebar.divider()
 # st.write(codAcao)
 # st.write(codNatDesp)
 # st.write(codItemDesp)
-if codAcaoE != [] and codFonteE != [] and codNatDespE != [] and codItemDespE != []:
+if codAcaoE != "" and codFonteE != [] and codNatDespE != [] and codItemDespE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
      consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
      consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE} & CODIGO_ITEM_DESPESA == {codItemDespE}")
      consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
-elif codAcaoE != [] and codFonteE != [] and codNatDespE != []:
+elif codAcaoE != "" and codFonteE != [] and codNatDespE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
      consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
      consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE} & CODIGO_NATUREZA_DESPESA == {codNatDespE}")
      consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
-elif codAcaoE != [] and codFonteE != []:
+elif codAcaoE != "" and codFonteE != []:
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
      consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
      consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE} & CODIGO_FONTE_RECURSO == {codFonteE}")
      consultaPagAnu = totPagAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
-elif codAcaoE != []:
+elif codAcaoE != "":
      consulta = totEmpOrig.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
      consultaSupl = totEmpSup.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
      consultaEmpAnu = totEmpAnu.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == {modLicita} & CODIGO_ACAO == {codAcaoE}")
@@ -261,6 +263,13 @@ if os.path.isfile(arq):
 elementoFiltro = unidGestora[unidGestora["CODIGO_UNIDADE_GESTORA"] == ugs].iloc[0]
 st.subheader(f"{elementoFiltro['CODIGO_UNIDADE_GESTORA']} - {elementoFiltro['SIGLA_UNIDADE_GESTORA']}")
 st.header(f"{elementoFiltro['NOME_UNIDADE_GESTORA']}", divider='blue')
+arqAcao = f"files/acao_exercicio_2024.csv"
+if os.path.isfile(arqAcao):
+        nomeAcao = pd.read_csv(arqAcao, sep=';', encoding='ISO-8859-1')
+nomeAcaoE = nomeAcao.query(f"CODIGO_ACAO == {codAcaoE}")
+#st.write(nomeAcaoE)
+elementoFiltroAcao = nomeAcaoE[nomeAcaoE["CODIGO_ACAO"] == codAcaoE].iloc[0]
+st.subheader(f"{elementoFiltroAcao['NOME_ACAO']} - {elementoFiltroAcao['CODIGO_ACAO']}")
 st.caption(f'Dados de janeiro a dezembro de {ano}')
 #st.write(st.session_state["orig"].query((f"CODIGO_UNIDADE_GESTORA == {ugs}")))
 
