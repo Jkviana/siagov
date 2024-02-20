@@ -93,6 +93,10 @@ def load_empOri2024():
         else:
             st.write(f"Arquivo **empenho_original{ano}mes{mes}** não disponível")
     empOrigr = pd.concat(empOrigt)
+    empOrigr["CODIGO_MODALIDADE_LICITACAO"] = empOrigr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empOrigr["CODIGO_ACAO"] = empOrigr["CODIGO_ACAO"].fillna(0)
+    empOrigr["CODIGO_FONTE_RECURSO"] = empOrigr["CODIGO_FONTE_RECURSO"].fillna(0)
+    empOrigr["CODIGO_ITEM_DESPESA"] = empOrigr["CODIGO_ITEM_DESPESA"].fillna(0)
     return empOrigr
 
 @st.cache_resource
@@ -106,6 +110,10 @@ def load_empSup2024():
         else:
             st.write(f"Arquivo **empenho_suplementacao{ano}mes{mes}** não disponível")
     empSupr = pd.concat(empSupt)
+    empSupr["CODIGO_MODALIDADE_LICITACAO"] = empSupr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empSupr["CODIGO_ACAO"] = empSupr["CODIGO_ACAO"].fillna(0)
+    empSupr["CODIGO_FONTE_RECURSO"] = empSupr["CODIGO_FONTE_RECURSO"].fillna(0)
+    empSupr["CODIGO_ITEM_DESPESA"] = empSupr["CODIGO_ITEM_DESPESA"].fillna(0)
     return empSupr
 
 @st.cache_resource
@@ -119,6 +127,11 @@ def load_empAnu2024():
         else:
             st.write(f"Arquivo **empenho_anulacao{ano}mes{mes}** não disponível")
     empAnur = pd.concat(empAnut)
+    empAnur["CODIGO_MODALIDADE_LICITACAO"] = empAnur["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empAnur["CODIGO_ACAO"] = empAnur["CODIGO_ACAO"].fillna(0)
+    empAnur["CODIGO_FONTE_RECURSO"] = empAnur["CODIGO_FONTE_RECURSO"].fillna(0)
+    empAnur["CODIGO_ITEM_DESPESA"] = empAnur["CODIGO_ITEM_DESPESA"].fillna(0)
+    empAnur['VALOR_EMPENHO'] = -empAnur['VALOR_EMPENHO']
     return empAnur
 
 @st.cache_resource
@@ -132,6 +145,10 @@ def load_pagAnu2024():
         else:
             st.write(f"Arquivo **pagamento_anulacao{ano}mes{mes}** não disponível")
     pagAnur = pd.concat(pagAnut)
+    pagAnur['VALOR_EMPENHO'] = -pagAnur['VALOR_DOCUMENTO']
+    pagAnur['DATA_DOCUMENTO'] = pd.to_datetime(pagAnur['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
+    pagAnur['MES_DOCUMENTO'] = pagAnur['DATA_DOCUMENTO'].dt.month_name()
+    pagAnur['NUM_MES_DOCUMENTO'] = pagAnur['DATA_DOCUMENTO'].dt.month #.dt.month_name()
     return pagAnur
 ###################################
 ### TRATAMENTO DOS EMPENHOS ###
@@ -139,43 +156,43 @@ def load_pagAnu2024():
 #with tab1:
 #st.subheader('`Empenhos Originários`')
 totEmpOrig = load_empOri2024()
-totEmpOrig["CODIGO_MODALIDADE_LICITACAO"] = totEmpOrig["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
-totEmpOrig["CODIGO_ACAO"] = totEmpOrig["CODIGO_ACAO"].fillna(0)
-totEmpOrig["CODIGO_FONTE_RECURSO"] = totEmpOrig["CODIGO_FONTE_RECURSO"].fillna(0)
-totEmpOrig["CODIGO_ITEM_DESPESA"] = totEmpOrig["CODIGO_ITEM_DESPESA"].fillna(0)
+# totEmpOrig["CODIGO_MODALIDADE_LICITACAO"] = totEmpOrig["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+# totEmpOrig["CODIGO_ACAO"] = totEmpOrig["CODIGO_ACAO"].fillna(0)
+# totEmpOrig["CODIGO_FONTE_RECURSO"] = totEmpOrig["CODIGO_FONTE_RECURSO"].fillna(0)
+# totEmpOrig["CODIGO_ITEM_DESPESA"] = totEmpOrig["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.dataframe(totEmpOrig)
-st.session_state["orig2024"] = totEmpOrig
+#st.session_state["orig2024"] = totEmpOrig
 #with tab2:
 #st.subheader('`Empenhos Suplementação`')
 totEmpSup = load_empSup2024()
-totEmpSup["CODIGO_MODALIDADE_LICITACAO"] = totEmpSup["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
-totEmpSup["CODIGO_ACAO"] = totEmpSup["CODIGO_ACAO"].fillna(0)
-totEmpSup["CODIGO_FONTE_RECURSO"] = totEmpSup["CODIGO_FONTE_RECURSO"].fillna(0)
-totEmpSup["CODIGO_ITEM_DESPESA"] = totEmpSup["CODIGO_ITEM_DESPESA"].fillna(0)
+# totEmpSup["CODIGO_MODALIDADE_LICITACAO"] = totEmpSup["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+# totEmpSup["CODIGO_ACAO"] = totEmpSup["CODIGO_ACAO"].fillna(0)
+# totEmpSup["CODIGO_FONTE_RECURSO"] = totEmpSup["CODIGO_FONTE_RECURSO"].fillna(0)
+# totEmpSup["CODIGO_ITEM_DESPESA"] = totEmpSup["CODIGO_ITEM_DESPESA"].fillna(0)
 #st.write(totEmpSup)
-st.session_state["sup2024"] = totEmpSup
+#st.session_state["sup2024"] = totEmpSup
 #with tab3:
 #st.subheader('`Empenhos Anulações`')
 totEmpAnu = load_empAnu2024()
-totEmpAnu["CODIGO_MODALIDADE_LICITACAO"] = totEmpAnu["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
-totEmpAnu["CODIGO_ACAO"] = totEmpAnu["CODIGO_ACAO"].fillna(0)
-totEmpAnu["CODIGO_FONTE_RECURSO"] = totEmpAnu["CODIGO_FONTE_RECURSO"].fillna(0)
-totEmpAnu["CODIGO_ITEM_DESPESA"] = totEmpAnu["CODIGO_ITEM_DESPESA"].fillna(0)
-totEmpAnu['VALOR_EMPENHO'] = -totEmpAnu['VALOR_EMPENHO']
+# totEmpAnu["CODIGO_MODALIDADE_LICITACAO"] = totEmpAnu["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+# totEmpAnu["CODIGO_ACAO"] = totEmpAnu["CODIGO_ACAO"].fillna(0)
+# totEmpAnu["CODIGO_FONTE_RECURSO"] = totEmpAnu["CODIGO_FONTE_RECURSO"].fillna(0)
+# totEmpAnu["CODIGO_ITEM_DESPESA"] = totEmpAnu["CODIGO_ITEM_DESPESA"].fillna(0)
+# totEmpAnu['VALOR_EMPENHO'] = -totEmpAnu['VALOR_EMPENHO']
 #st.write(totEmpAnu)
-st.session_state["anuE2024"] = totEmpAnu
+#st.session_state["anuE2024"] = totEmpAnu
 #with tab4:
 #st.subheader('`Pagamento Anulações`')
 totPagAnu = load_pagAnu2024()
-colunas = ['CODIGO_UNIDADE_GESTORA', 'NUMERO_EMPENHO', 'VALOR_EMPENHO','DATA_DOCUMENTO']
-totPagAnu['VALOR_EMPENHO'] = -totPagAnu['VALOR_DOCUMENTO']
-totPagAnu['DATA_DOCUMENTO'] = pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
-#totPagAnu['MES_DOCUMENTO'] = pd.DataFrame({"MES_DOCUMENTO": pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])})
-#totPagAnu['MES'] = totPagAnu['MES_DOCUMENTO'].dt.month
-totPagAnu['MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month_name()
-totPagAnu['NUM_MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month #.dt.month_name()
+# colunas = ['CODIGO_UNIDADE_GESTORA', 'NUMERO_EMPENHO', 'VALOR_EMPENHO','DATA_DOCUMENTO']
+# totPagAnu['VALOR_EMPENHO'] = -totPagAnu['VALOR_DOCUMENTO']
+# totPagAnu['DATA_DOCUMENTO'] = pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
+# #totPagAnu['MES_DOCUMENTO'] = pd.DataFrame({"MES_DOCUMENTO": pd.to_datetime(totPagAnu['DATA_DOCUMENTO'])})
+# #totPagAnu['MES'] = totPagAnu['MES_DOCUMENTO'].dt.month
+# totPagAnu['MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month_name()
+# totPagAnu['NUM_MES_DOCUMENTO'] = totPagAnu['DATA_DOCUMENTO'].dt.month #.dt.month_name()
 #st.write(totPagAnu)
-st.session_state["anuP2024"] = totPagAnu
+#st.session_state["anuP2024"] = totPagAnu
 
 ##############################
 
