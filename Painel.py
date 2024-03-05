@@ -161,7 +161,7 @@ def style_metric_cards(
 ############## 2024 ###############
     
 ano = 2024
-mes = 2
+mes = 3
 
 ### Carga de dados ###
 @st.cache_data
@@ -405,25 +405,27 @@ col4.metric(label="Anulação de Pagamentos (em milhões)", value=f"{valor_realP
 st.subheader('', divider='blue')
 
 ###### PARA A CARGA DOS ARQUIVOS ########
-# arquivo = "empenho_anulacao"
+# anoB = 2024
+# mesB = 3
+# arquivo = "pagamento_anulacao" # "empenho_suplementacao"  "empenho_original" "empenho_anulacao"
 # col1, col2 = st.columns([0.5, 4])
 # with col2:
-#     for i in range (1, 13):
-#         arqbaixado = f"files/{arquivo}{ano}mes{i}.gzip"
+#     for i in range (1, mesB):
+#         arqbaixado = f"files/{arquivo}{anoB}mes{i}.gzip"
 #         if os.path.isfile(arqbaixado):
-#             st.info(f"Arquivo **{arquivo}{ano}mes{i}** disponível")
+#             st.info(f"Arquivo **{arquivo}{anoB}mes{i}** disponível")
 #         else:
-#             st.warning(f"Arquivo **{arquivo}{ano}mes{i}** não disponível")
+#             st.warning(f"Arquivo **{arquivo}{anoB}mes{i}** não disponível")
 #             if st.button(f'Baixar arquivos do mês {i}'):
-#                 resposta = rq.get(f"https://dados.pb.gov.br:443/getcsv?nome={arquivo}&exercicio={ano}&mes={i}")
+#                 resposta = rq.get(f"https://dados.pb.gov.br:443/getcsv?nome={arquivo}&exercicio={anoB}&mes={i}")
 #                 if resposta.status_code == rq.codes.OK:
-#                     df = pd.read_csv(f'https://dados.pb.gov.br:443/getcsv?nome={arquivo}&exercicio={ano}&mes={i}', sep=';', encoding='ISO-8859-1')
-#                     df.to_csv(f"files/{arquivo}{ano}mes{i}.gzip", sep=';', encoding='ISO-8859-1', index=False, compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
-#                     st.success(f"Arquivos de {arquivo} do ano {ano} mês {i} baixados com sucesso")
+#                     df = pd.read_csv(f'https://dados.pb.gov.br:443/getcsv?nome={arquivo}&exercicio={anoB}&mes={i}', sep=';', encoding='ISO-8859-1')
+#                     df.to_csv(f"files/{arquivo}{anoB}mes{i}.gzip", sep=';', encoding='ISO-8859-1', index=False, compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
+#                     st.success(f"Arquivos de {arquivo} do ano {anoB} mês {i} baixados com sucesso")
 #                 else:
 #                     if i == 13:
-#                         st.success(f"Todos arquivos do {ano} disponíveis")
+#                         st.success(f"Todos arquivos do {anoB} disponíveis")
 #                     else:
-#                         st.error(f"Arquivos de {arquivo} do ano {ano} mês {i} não disponível")
+#                         st.error(f"Arquivos de {arquivo} do ano {anoB} mês {i} não disponível")
 # with col1:
 #     st.write(i)
