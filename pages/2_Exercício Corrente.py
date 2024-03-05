@@ -366,8 +366,9 @@ st.divider()
 
 st.subheader('Fornecedores')
 fornecedores = consulta[["NOME_CREDOR", "CPFCNPJ_CREDOR" , "VALOR_EMPENHO"]]#.groupby(["NOME_MUNICIPIO"] , as_index=True).sum('VALOR_EMPENHO')
-st.dataframe(fornecedores.groupby(["NOME_CREDOR", "CPFCNPJ_CREDOR"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
-
+fornec = pd.DataFrame(fornecedores.groupby(["NOME_CREDOR", "CPFCNPJ_CREDOR"] , as_index=True).sum('VALOR_EMPENHO').sort_values('VALOR_EMPENHO', ascending=False))
+fornec['VALOR_EMPENHO'] = fornec['VALOR_EMPENHO'].apply(formatar)
+st.dataframe(fornec)
 
 #### FOOTER SIDEBAR #####
 st.sidebar.divider()
