@@ -88,7 +88,7 @@ with col1:
             st.session_state.ugsKey = ugss
             st.rerun()
 
-ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MOTIVO_DISPENSA_LICITACAO == 4') #CODIGO_MODALIDADE_LICITACAO
+ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 #ugs
 
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
