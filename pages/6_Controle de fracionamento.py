@@ -94,7 +94,7 @@ with col1:
         itens_nat_desp = sorted(filtro_nat_desp['CODIGO_NATUREZA_DESPESA'].unique())
         nat_desp = st.multiselect("Natureza da Despesa",itens_nat_desp, default=itens_nat_desp,)
         filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}')
-        itens_item_desp = sorted(filtro_nat_desp['CODIGO_ITEM_DESPESA'].unique())
+        itens_item_desp = sorted(filtro_item_desp['CODIGO_ITEM_DESPESA'].unique())
         item_desp = st.multiselect("Item da Despesa",itens_item_desp, default=itens_item_desp)
 
 ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and CODIGO_ITEM_DESPESA == {item_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
