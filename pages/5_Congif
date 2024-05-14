@@ -61,7 +61,7 @@ add_logo("datasets/siagovlogonovo.png")
 
 st.sidebar.divider()
 
-st.session_state.ugs
+#st.session_state.ugs
 
 ### CARGA DE DADOS EMPENHO ORIGINAL
 dataatual = date.today()

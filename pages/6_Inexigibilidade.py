@@ -64,11 +64,12 @@ df_ugs = pd.read_csv("files/unidade_gestora_2023.gzip", sep=';', encoding='ISO-8
 colunas = list(df_ugs)
 df_ugs[colunas] = df_ugs[colunas].astype('category')
 
-if 'ugs' not in st.session_state:
-    st.session_state.ugs = '270001'
+if 'ugsKey' not in st.session_state:
+    st.session_state['ugsKey'] = '270001'
 
-unid = df_ugs[df_ugs['CODIGO_UNIDADE_GESTORA'] == st.session_state.ugs].iloc[0]
-#texto = unid['NOME_UNIDADE_GESTORA']#.iloc[0]
+unid = df_ugs[df_ugs['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].iloc[0]
+#texto = str(unid['NOME_UNIDADE_GESTORA'])#.iloc[0]
+#unid
 st.subheader(f"{unid['CODIGO_UNIDADE_GESTORA']} - {unid['SIGLA_UNIDADE_GESTORA']}")
 st.header(f"{unid['NOME_UNIDADE_GESTORA']}", divider='blue')
 
@@ -84,10 +85,10 @@ with col1:
         ugss = st.selectbox("Unidade Gestora Selecionada",sorted(df["CODIGO_UNIDADE_GESTORA"].unique()),label_visibility="collapsed")
         ### INICIALIZAR UNIDADE GESTORA ###
         if st.button("Alterar"):
-            st.session_state.ugs = ugss
+            st.session_state.ugsKey = ugss
             st.rerun()
 
-ugs = df[df['CODIGO_UNIDADE_GESTORA'] == st.session_state.ugs].query('CODIGO_MODALIDADE_LICITACAO == 4')
+ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4')
 #ugs
 
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
