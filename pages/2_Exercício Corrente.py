@@ -260,7 +260,7 @@ if st.sidebar.button('Limpar Cache'):
 arq = f"files/unidade_gestora_2023.gzip"
 if os.path.isfile(arq):
         unidGestora = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
-
+mesA = mesA - 1
 if mesA == 1:
     mesText = "janeiro"
 elif mesA == 2:

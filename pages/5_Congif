@@ -1,0 +1,255 @@
+import streamlit as st # type: ignore
+import pandas as pd
+from zipfile import ZipFile
+from zipfile import Path
+import requests as rq
+from io import StringIO
+from datetime import date
+import webbrowser
+import os
+import base64
+
+
+st.set_page_config(
+    page_title="SIAGOV",
+    page_icon="datasets/siagov.ico",
+    layout="wide",
+)
+
+#@st.cache(allow_output_mutation=True)
+def get_base64_of_bin_file(png_file):
+    with open(png_file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+def build_markup_for_logo(
+    png_file,
+    background_position="50% 10%",
+    margin_top="10%",
+    image_width="60%",
+    image_height="",
+):
+    binary_string = get_base64_of_bin_file(png_file)
+    return """
+            <style>
+                [data-testid="stSidebarNav"] {
+                    background-image: url("data:image/png;base64,%s");
+                    background-repeat: no-repeat;
+                    background-position: %s;
+                    margin-top: %s;
+                    background-size: %s %s;
+                }
+            </style>
+            """ % (
+        binary_string,
+        background_position,
+        margin_top,
+        image_width,
+        image_height,
+    )
+
+
+def add_logo(png_file):
+    logo_markup = build_markup_for_logo(png_file)
+    st.markdown(
+        logo_markup,
+        unsafe_allow_html=True,
+    )
+
+add_logo("datasets/siagovlogonovo.png")
+
+st.sidebar.divider()
+
+st.session_state.ugs
+
+### CARGA DE DADOS EMPENHO ORIGINAL
+dataatual = date.today()
+ano = dataatual.year
+mesA = dataatual.month
+if dataatual.year > ano:
+        mes = mesA + 1
+
+@st.cache_resource
+def load_empOri2024():
+    empOrigt = []
+    for i in range (1, mesA):
+        arq = f"files/empenho_original{ano}mes{i}.gzip"
+        if os.path.isfile(arq):
+                emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
+                empOrigt.append(emp)
+        else:
+            st.write(f"Arquivo **empenho_original{ano}mes{mesA}** não disponível")
+    empOrigr = pd.concat(empOrigt)
+    empOrigr["CODIGO_MODALIDADE_LICITACAO"] = empOrigr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empOrigr["CODIGO_ACAO"] = empOrigr["CODIGO_ACAO"].fillna(0)
+    empOrigr["CODIGO_FONTE_RECURSO"] = empOrigr["CODIGO_FONTE_RECURSO"].fillna(0)
+    empOrigr["CODIGO_ITEM_DESPESA"] = empOrigr["CODIGO_ITEM_DESPESA"].fillna(0)
+    return empOrigr
+
+@st.cache_resource
+def load_empSup2024():
+    empSupt = []
+    for i in range (1, mesA):
+        arq = f"files/empenho_suplementacao{ano}mes{i}.gzip"
+        if os.path.isfile(arq):
+                emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
+                empSupt.append(emp)
+        else:
+            st.write(f"Arquivo **empenho_suplementacao{ano}mes{mesA}** não disponível")
+    empSupr = pd.concat(empSupt)
+    empSupr["CODIGO_MODALIDADE_LICITACAO"] = empSupr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empSupr["CODIGO_ACAO"] = empSupr["CODIGO_ACAO"].fillna(0)
+    empSupr["CODIGO_FONTE_RECURSO"] = empSupr["CODIGO_FONTE_RECURSO"].fillna(0)
+    empSupr["CODIGO_ITEM_DESPESA"] = empSupr["CODIGO_ITEM_DESPESA"].fillna(0)
+    return empSupr
+
+@st.cache_resource
+def load_empAnu2024():
+    empAnut = []
+    for i in range (1, mesA):
+        arq = f"files/empenho_anulacao{ano}mes{i}.gzip"
+        if os.path.isfile(arq):
+                emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
+                empAnut.append(emp)
+        else:
+            st.write(f"Arquivo **empenho_anulacao{ano}mes{mesA}** não disponível")
+    empAnur = pd.concat(empAnut)
+    empAnur["CODIGO_MODALIDADE_LICITACAO"] = empAnur["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
+    empAnur["CODIGO_ACAO"] = empAnur["CODIGO_ACAO"].fillna(0)
+    empAnur["CODIGO_FONTE_RECURSO"] = empAnur["CODIGO_FONTE_RECURSO"].fillna(0)
+    empAnur["CODIGO_ITEM_DESPESA"] = empAnur["CODIGO_ITEM_DESPESA"].fillna(0)
+    empAnur['VALOR_EMPENHO'] = -empAnur['VALOR_EMPENHO']
+    return empAnur
+
+@st.cache_resource
+def load_pagAnu2024():
+    pagAnut = []
+    for i in range (1, mesA):
+        arq = f"files/pagamento_anulacao{ano}mes{i}.gzip"
+        if os.path.isfile(arq):
+                emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
+                pagAnut.append(emp)
+        else:
+            st.write(f"Arquivo **pagamento_anulacao{ano}mes{mesA}** não disponível")
+    pagAnur = pd.concat(pagAnut)
+    pagAnur['VALOR_EMPENHO'] = -pagAnur['VALOR_DOCUMENTO']
+    pagAnur['NUMERO_EMPENHO_ORIGEM'] = pagAnur['NUMERO_EMPENHO']
+    pagAnur['DATA_DOCUMENTO'] = pd.to_datetime(pagAnur['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
+    pagAnur['DATA_EMPENHO'] = pagAnur['DATA_DOCUMENTO']
+    pagAnur['CODIGO_TIPO_EMPENHO'] = pagAnur['CODIGO_TIPO_DOCUMENTO'] # GD
+    pagAnur['DESCRICAO_TIPO_EMPENHO'] = pagAnur['DESCRICAO_TIPO_DOCUMENTO'] # GUIA DE DEVOLUCAO
+    #pagAnur['MES_DOCUMENTO'] = pagAnur['DATA_DOCUMENTO'].dt.month_name()
+    #pagAnur['NUM_MES_DOCUMENTO'] = pagAnur['DATA_DOCUMENTO'].dt.month #.dt.month_name()
+
+    return pagAnur
+
+@st.cache_resource
+def itemdespesa():
+     itemdesp = []
+     arq = f"files/item_despesa_exercicio_2024.csv"
+     if os.path.isfile(arq):
+          itemdesp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1')
+
+     return itemdesp
+
+###################################
+### TRATAMENTO DOS EMPENHOS ###
+
+totEmpOrig = load_empOri2024()
+
+totEmpSup = load_empSup2024()
+
+totEmpAnu = load_empAnu2024()
+
+totPagAnu = load_pagAnu2024()
+
+itemdespesas = itemdespesa()
+
+st.write("itemdespesas")
+itemdespesas
+
+@st.cache_resource
+def totalpagamento():
+    totPagAnu[['CODIGO_MODALIDADE_LICITACAO','CODIGO_MOTIVO_DISPENSA_LICITACAO','DESTINO_DIARIAS','DATA_SAIDA_DIARIAS','DATA_CHEGADA_DIARIAS']] = ' '
+    totPagAnu[["NOME_CREDOR", "CPFCNPJ_CREDOR" ,"TIPO_CREDOR", "CODIGO_MUNICIPIO", "NOME_MUNICIPIO", "NUMERO_PROCESSO_PAGAMENTO", "NUMERO_CONTRATO"]] = " "
+    totPagAnu['NUMERO_EMPENHO_ORIGEM'] = totPagAnu['NUMERO_EMPENHO_ORIGEM'].fillna(0)
+    totPagAnu[['CODIGO_UNIDADE_ORCAMENTARIA', 'CODIGO_FUNCAO','CODIGO_SUBFUNCAO','CODIGO_PROGRAMA','CODIGO_ACAO','CODIGO_FONTE_RECURSO','CODIGO_NATUREZA_DESPESA']] = ' '
+    totPagAnu[['CODIGO_CATEGORIA_ECONOMICA_DESPESA', 'CODIGO_GRUPO_NATUREZA_DESPESA','CODIGO_MODALIDADE_APLICACAO_DESPESA','CODIGO_ELEMENTO_DESPESA','CODIGO_ITEM_DESPESA']] = ' '
+    totPagAnu[['CODIGO_FINALIDADE_FIXACAO','NOME__FINALIDADE_FIXACAO','CODIGO_LICITACAO','ORCAMENTO_DEMOCRATICO']] = ' '
+    #totPagAnu[['']] = ' '
+    for i in range(len(totPagAnu)): # totPagAnu.itertuples(): # 
+        chave = totEmpOrig.query(f'CODIGO_UNIDADE_GESTORA == {totPagAnu['CODIGO_UNIDADE_GESTORA'].iloc[i]} and NUMERO_EMPENHO_ORIGEM == {totPagAnu['NUMERO_EMPENHO_ORIGEM'].iloc[i]}')
+        if chave.empty: 
+            totPagAnu['NOME_CREDOR'].iloc[i] = " "
+        else:
+            totPagAnu['CODIGO_MODALIDADE_LICITACAO'].iloc[i] = chave['CODIGO_MODALIDADE_LICITACAO'].iloc[0]
+            totPagAnu['CODIGO_MOTIVO_DISPENSA_LICITACAO'].iloc[i] = chave['CODIGO_MOTIVO_DISPENSA_LICITACAO'].iloc[0]
+            totPagAnu['DESTINO_DIARIAS'].iloc[i] = chave['DESTINO_DIARIAS'].iloc[0]
+            totPagAnu['DATA_SAIDA_DIARIAS'].iloc[i] = chave['DATA_SAIDA_DIARIAS'].iloc[0]
+            totPagAnu['DATA_CHEGADA_DIARIAS'].iloc[i] = chave['DATA_CHEGADA_DIARIAS'].iloc[0]
+            totPagAnu['NOME_CREDOR'].iloc[i] = chave['NOME_CREDOR'].iloc[0]
+            totPagAnu['CPFCNPJ_CREDOR'].iloc[i] = chave['CPFCNPJ_CREDOR'].iloc[0]
+            totPagAnu['TIPO_CREDOR'].iloc[i] = chave['TIPO_CREDOR'].iloc[0]
+            totPagAnu['CODIGO_MUNICIPIO'].iloc[i] = chave['CODIGO_MUNICIPIO'].iloc[0]
+            totPagAnu['NOME_MUNICIPIO'].iloc[i] = chave['NOME_MUNICIPIO'].iloc[0]
+            totPagAnu['NUMERO_PROCESSO_PAGAMENTO'].iloc[i] = chave['NUMERO_PROCESSO_PAGAMENTO'].iloc[0]
+            totPagAnu['NUMERO_CONTRATO'].iloc[i] = chave['NUMERO_CONTRATO'].iloc[0]
+            #totPagAnu[''].iloc[i] = chave[''].iloc[0]
+            totPagAnu['CODIGO_UNIDADE_ORCAMENTARIA'].iloc[i] = chave['CODIGO_UNIDADE_ORCAMENTARIA'].iloc[0]
+            totPagAnu['CODIGO_FUNCAO'].iloc[i] = chave['CODIGO_FUNCAO'].iloc[0]
+            totPagAnu['CODIGO_SUBFUNCAO'].iloc[i] = chave['CODIGO_SUBFUNCAO'].iloc[0]
+            totPagAnu['CODIGO_PROGRAMA'].iloc[i] = chave['CODIGO_PROGRAMA'].iloc[0]
+            totPagAnu['CODIGO_ACAO'].iloc[i] = chave['CODIGO_ACAO'].iloc[0]
+            totPagAnu['CODIGO_FONTE_RECURSO'].iloc[i] = chave['CODIGO_FONTE_RECURSO'].iloc[0]
+            totPagAnu['CODIGO_NATUREZA_DESPESA'].iloc[i] = chave['CODIGO_NATUREZA_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_CATEGORIA_ECONOMICA_DESPESA'].iloc[i] = chave['CODIGO_CATEGORIA_ECONOMICA_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_GRUPO_NATUREZA_DESPESA'].iloc[i] = chave['CODIGO_GRUPO_NATUREZA_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_MODALIDADE_APLICACAO_DESPESA'].iloc[i] = chave['CODIGO_MODALIDADE_APLICACAO_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_ELEMENTO_DESPESA'].iloc[i] = chave['CODIGO_ELEMENTO_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_ITEM_DESPESA'].iloc[i] = chave['CODIGO_ITEM_DESPESA'].iloc[0]
+            totPagAnu['CODIGO_FINALIDADE_FIXACAO'].iloc[i] = chave['CODIGO_FINALIDADE_FIXACAO'].iloc[0]
+            totPagAnu['NOME__FINALIDADE_FIXACAO'].iloc[i] = chave['NOME__FINALIDADE_FIXACAO'].iloc[0]
+            totPagAnu['CODIGO_LICITACAO'].iloc[i] = chave['CODIGO_LICITACAO'].iloc[0]
+            totPagAnu['ORCAMENTO_DEMOCRATICO'].iloc[i] = chave['ORCAMENTO_DEMOCRATICO'].iloc[0]
+        #break 
+    return totPagAnu
+
+#totPagAnu = totalpagamento()
+
+st.write("resultado")
+result = pd.concat([totEmpOrig,totEmpSup,totEmpAnu,totPagAnu])#, ignore_index=True, sort=False)
+result['DATA_EMPENHO'] = pd.to_datetime(result['DATA_EMPENHO'])
+result['MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month_name()
+result['NUM_MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month
+
+result = pd.merge(result, itemdespesas[['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA','NOME_ITEM_DESPESA']], how='left', on=['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA'])
+result
+
+ugs = st.sidebar.selectbox("Código da Unidade Gestora", result["CODIGO_UNIDADE_GESTORA"].unique())
+idespesa = st.sidebar.selectbox("Item de despesa",result["CODIGO_ITEM_DESPESA"].unique())
+st.write('total unid gestora')
+consulta1 = result.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_MODALIDADE_LICITACAO == 4")
+consulta1
+
+# st.write('total unid gestora e item despesa')
+# consulta = result.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & CODIGO_ITEM_DESPESA == {idespesa}")
+# consulta
+
+# # para consulta de um df para outro df
+# consultaemp = consulta[['NUMERO_EMPENHO_ORIGEM']]
+# consultaemp
+# st.write('anulações')
+# #filtro = result.query(f"CODIGO_UNIDADE_GESTORA == {ugs} & NUMERO_EMPENHO_ORIGEM == {consultaemp}")
+# filtro = result[result['NUMERO_EMPENHO_ORIGEM'].isin(consultaemp['NUMERO_EMPENHO_ORIGEM'])]
+# #elementoFiltroAcao = nomeAcaoE[nomeAcaoE["CODIGO_ACAO"] == codAcaoE].iloc[0]
+# filtro = filtro.query(f"CODIGO_UNIDADE_GESTORA == {ugs}")
+# filtro
+
+# st.write('agrupado')
+# consulta1['EXERCICIO'] = consulta1['EXERCICIO'].astype('category')
+# consulta1['CODIGO_NATUREZA_DESPESA'] = consulta1['CODIGO_NATUREZA_DESPESA'].astype('category')
+# consulta1['CODIGO_ITEM_DESPESA'] = consulta1['CODIGO_ITEM_DESPESA'].astype('category')
+# grupo_item_despesa = consulta1.groupby(['NUMERO_EMPENHO_ORIGEM','CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA','NUM_MES_DOCUMENTO']).sum(['VALOR_EMPENHO']).reset_index()
+# table = pd.pivot_table(grupo_item_despesa, values='VALOR_EMPENHO', index=['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA'], columns='NUM_MES_DOCUMENTO',aggfunc='sum')
+# table
