@@ -57,6 +57,8 @@ st.sidebar.image("datasets/GovPBT.png") #, width = 200)
 st.sidebar.divider()
 
 df = pd.read_pickle("files/consolidado.pkl.compress", compression="gzip")
+df['CODIGO_NATUREZA_DESPESA'] = df['CODIGO_NATUREZA_DESPESA'].astype('category')
+df['CODIGO_ITEM_DESPESA'] = df['CODIGO_ITEM_DESPESA'].astype('category')
 #st.write(df)
 df_ugs = pd.read_csv("files/unidade_gestora_2023.gzip", sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
 
@@ -84,11 +86,19 @@ with col1:
     with st.expander("Selecionar Unidade Gestora"):
         ugss = st.selectbox("Unidade Gestora Selecionada",sorted(df["CODIGO_UNIDADE_GESTORA"].unique()),label_visibility="collapsed")
         ### INICIALIZAR UNIDADE GESTORA ###
-        if st.button("Alterar"):
+        if st.button("Alterar Unidade Gestora"):
             st.session_state.ugsKey = ugss
             st.rerun()
 
-ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+        filtro_nat_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4')
+        itens_nat_desp = sorted(filtro_nat_desp['CODIGO_NATUREZA_DESPESA'].unique())
+        nat_desp = st.multiselect("Natureza da Despesa",itens_nat_desp, default=itens_nat_desp,)
+        filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}')
+        itens_item_desp = sorted(filtro_nat_desp['CODIGO_ITEM_DESPESA'].unique())
+        item_desp = st.multiselect("Item da Despesa",itens_item_desp, default=itens_item_desp)
+
+ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and CODIGO_ITEM_DESPESA == {item_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+# Todos os lançamentos da unidade gestora
 totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
 
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
