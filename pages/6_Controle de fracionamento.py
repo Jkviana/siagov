@@ -89,7 +89,7 @@ with col1:
             st.rerun()
 
 ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4') #CODIGO_MOTIVO_DISPENSA_LICITACAO
-#ugs
+totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
 
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
 tabela['TOTAL'] = tabela.sum(axis=1)
@@ -149,3 +149,7 @@ st.dataframe(municpN[['NOME_MUNICIPIO','REGIAO','SEDE_REGIAO','IDH']], hide_inde
 municcht = municpN.groupby('REGIAO').sum('CONTAR').reset_index()
 fig = px.bar(municcht, x="REGIAO", y="CONTAR", title = "Municípios não atendidos por região")
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+st.divider()
+st.subheader('Todos Empenhos da Unidade Gestora')
+st.dataframe(totalugs)
