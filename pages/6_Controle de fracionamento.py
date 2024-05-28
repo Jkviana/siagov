@@ -94,10 +94,16 @@ with col1:
         itens_nat_desp = sorted(filtro_nat_desp['CODIGO_NATUREZA_DESPESA'].unique())
         nat_desp = st.selectbox("Natureza da Despesa",itens_nat_desp)
         filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}')
-        itens_item_desp = sorted(filtro_item_desp['CODIGO_ITEM_DESPESA'].unique())
-        item_desp = st.multiselect("Item da Despesa",itens_item_desp, default=itens_item_desp)
+        itens_item_desp = ["Todas"] + sorted(filtro_item_desp['CODIGO_ITEM_DESPESA'].unique())
+        # itens_item_desp.insert(0, 'Todos') # itens_item_desp.append('Todos') para todos no final da lista
+        #st.write(itens_item_desp)
+        item_desp = st.selectbox("Item da Despesa",itens_item_desp)#, default=itens_item_desp)
 
-ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and CODIGO_ITEM_DESPESA == {item_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+if item_desp == "Todas":
+    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+else:
+    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and CODIGO_ITEM_DESPESA == {item_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+
 # Todos os lançamentos da unidade gestora
 totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
 
