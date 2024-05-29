@@ -113,18 +113,23 @@ totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
 tabela['TOTAL'] = tabela.sum(axis=1)
 
-st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=True,column_config={"1":st.column_config.NumberColumn("Janeiro",format="%.2f"),
+def formatar(valor):
+     return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
+
+tabela['TOTAL'] = tabela['TOTAL'].apply(formatar)
+st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=True, column_config={"1":st.column_config.NumberColumn("Janeiro",format="%.2f"),
                                                                                                    "2":st.column_config.NumberColumn("Fevereiro",format="%.2f"),
                                                                                                    "3":st.column_config.NumberColumn("Março",format="%.2f"),
                                                                                                    "4":st.column_config.NumberColumn("Abril",format="%.2f"),
-                                                                                                   "TOTAL":st.column_config.NumberColumn("TOTAL",format="%.2f")})
+                                                                                                   "5":st.column_config.NumberColumn("Maio",format="%.2f"),
+                                                                                       })#            "TOTAL":st.column_config.NumberColumn("TOTAL",format="%.2f")})
+
 
 item_con = st.selectbox('Detalhar Item de Despesa', sorted(ugs['NOME_ITEM_DESPESA'].unique()))
 con_item = ugs[ugs['NOME_ITEM_DESPESA'] == item_con]
-st.dataframe(con_item.sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
-
-def formatar(valor):
-     return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
+con_item_formated = ugs[ugs['NOME_ITEM_DESPESA'] == item_con]
+con_item_formated['VALOR_EMPENHO'] = con_item_formated['VALOR_EMPENHO'].apply(formatar) #.sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
+st.dataframe(con_item_formated.sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True) #, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
 
 st.divider()
 st.subheader('Fornecedores')
