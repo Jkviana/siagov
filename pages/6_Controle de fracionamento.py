@@ -87,7 +87,13 @@ with col2:
         st.write(df_ugs[colunas].set_index('CODIGO_UNIDADE_GESTORA'))
 with col1:
     with st.expander("Selecionar Unidade Gestora"):
-        ugss = st.selectbox("Unidade Gestora Selecionada",sorted(df["CODIGO_UNIDADE_GESTORA"].unique()),label_visibility="collapsed")
+        ####### ENCONTRAR O INDEX DA UNID GESTORA ##############
+        dfindex = pd.DataFrame(df["CODIGO_UNIDADE_GESTORA"].unique().sort_values())
+        dfindex.reset_index(inplace=True)
+        dfindex.rename(columns={0:'nome'}, inplace=True)
+        dfnome = dfindex.query(f"nome == {st.session_state.ugsKey}").sort_values('nome')
+        dfnometx = format(int(dfnome.sum(numeric_only=True)['index']))
+        ugss = st.selectbox("Unidade Gestora Selecionada",sorted(df["CODIGO_UNIDADE_GESTORA"].unique()), index=int(dfnometx), label_visibility="collapsed")
         ### INICIALIZAR UNIDADE GESTORA ###
         if st.button("Alterar Unidade Gestora"):
             st.session_state.ugsKey = ugss
