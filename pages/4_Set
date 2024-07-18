@@ -62,12 +62,12 @@ add_logo("datasets/siagovlogonovo.png")
 st.sidebar.divider()
 
 ### INICIALIZAR UNIDADE GESTORA ###
-#if 'ugs' not in st.session_state:
-#     st.session_state.ugs = '270001'
+if 'ugs' not in st.session_state:
+    st.session_state.ugs = '270001'
 
-#ugss = st.selectbox("Unidade Gestora", ('270001', '10001','90301'))
-#if st.button("Alterar"):
-#     st.session_state.ugs = ugss
+ugss = st.selectbox("Unidade Gestora", ('270001', '10001','90301'))
+if st.button("Alterar"):
+    st.session_state.ugs = ugss
 
 
 st.write(st.session_state.ugs)
@@ -193,10 +193,10 @@ result = pd.merge(result, itemdespesas[['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_D
 coluna = ['EXERCICIO','CODIGO_UNIDADE_GESTORA']
 result[coluna] = result[coluna].astype('category')
 result['NOME_ITEM_DESPESA'] = result['NOME_ITEM_DESPESA'].fillna('')
-result
-#result.to_pickle("files/consolidado.pkl.compress", compression="gzip")
-#df = pd.read_pickle("files/consolidado.pkl.compress", compression="gzip")
-#df
+result ############# CARGA
+result.to_pickle("files/consolidado.pkl.compress", compression="gzip")
+df = pd.read_pickle("files/consolidado.pkl.compress", compression="gzip")
+df
 
 ugs = st.sidebar.selectbox("Código da Unidade Gestora", result["CODIGO_UNIDADE_GESTORA"].unique())
 idespesa = st.sidebar.selectbox("Item de despesa",result["CODIGO_ITEM_DESPESA"].unique())

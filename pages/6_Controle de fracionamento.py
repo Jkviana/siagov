@@ -127,7 +127,8 @@ st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=T
                                                                                                    "2":st.column_config.NumberColumn("Fevereiro",format="%.2f"),
                                                                                                    "3":st.column_config.NumberColumn("Março",format="%.2f"),
                                                                                                    "4":st.column_config.NumberColumn("Abril",format="%.2f"),
-                                                                                                   "5":st.column_config.NumberColumn("Maio",format="%.2f"),})          
+                                                                                                   "5":st.column_config.NumberColumn("Maio",format="%.2f"),
+                                                                                                   "6":st.column_config.NumberColumn("Junho",format="%.2f"),})          
 
 
 item_con = st.selectbox('Detalhar Item de Despesa', sorted(ugs['NOME_ITEM_DESPESA'].unique()))
