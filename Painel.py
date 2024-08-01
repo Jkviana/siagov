@@ -161,7 +161,7 @@ def style_metric_cards(
 ############## 2024 ###############
     
 ano = 2024
-mes = 6
+mes = date.today().month
 
 ### Carga de dados ###
 @st.cache_data
