@@ -256,6 +256,7 @@ contTotalEmpText = "{:,.0f}".format(float(contTotalEmp)).replace(",", "X").repla
 contTotalAnu = sum(contEmpAnu,contPagAnu)
 contTotalAnuText = "{:,.0f}".format(float(contTotalAnu)).replace(",", "X").replace(".", ",").replace("X", ".")
 
+mes = mes-1
 if mes == 1:
     mesText = "janeiro"
 elif mes == 2:
