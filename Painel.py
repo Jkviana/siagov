@@ -172,8 +172,8 @@ def load_empOri2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empOrigt.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_original{ano}mes{mes}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_original{ano}mes{mes}** não disponível")
     empOrigr = pd.concat(empOrigt)
     return empOrigr
 
@@ -185,8 +185,8 @@ def load_empSup2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empSupt.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_suplementacao{ano}mes{mes}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_suplementacao{ano}mes{mes}** não disponível")
     empSupr = pd.concat(empSupt)
     return empSupr
 
@@ -198,8 +198,8 @@ def load_empAnu2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empAnut.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_anulacao{ano}mes{mes}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_anulacao{ano}mes{mes}** não disponível")
     empAnur = pd.concat(empAnut)
     return empAnur
 
@@ -211,8 +211,8 @@ def load_pagAnu2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 pagAnut.append(emp)
-        else:
-            st.write(f"Arquivo **pagamento_anulacao{ano}mes{mes}** não disponível")
+        #else:
+            #st.write(f"Arquivo **pagamento_anulacao{ano}mes{mes}** não disponível")
     pagAnur = pd.concat(pagAnut)
     return pagAnur
 ### Fim da carga de dados ###

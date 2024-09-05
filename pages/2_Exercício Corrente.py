@@ -93,8 +93,8 @@ def load_empOri2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empOrigt.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_original{ano}mes{mesA}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_original{ano}mes{mesA}** não disponível")
     empOrigr = pd.concat(empOrigt)
     empOrigr["CODIGO_MODALIDADE_LICITACAO"] = empOrigr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
     empOrigr["CODIGO_ACAO"] = empOrigr["CODIGO_ACAO"].fillna(0)
@@ -110,8 +110,8 @@ def load_empSup2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empSupt.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_suplementacao{ano}mes{mesA}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_suplementacao{ano}mes{mesA}** não disponível")
     empSupr = pd.concat(empSupt)
     empSupr["CODIGO_MODALIDADE_LICITACAO"] = empSupr["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
     empSupr["CODIGO_ACAO"] = empSupr["CODIGO_ACAO"].fillna(0)
@@ -127,8 +127,8 @@ def load_empAnu2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 empAnut.append(emp)
-        else:
-            st.write(f"Arquivo **empenho_anulacao{ano}mes{mesA}** não disponível")
+        #else:
+            #st.write(f"Arquivo **empenho_anulacao{ano}mes{mesA}** não disponível")
     empAnur = pd.concat(empAnut)
     empAnur["CODIGO_MODALIDADE_LICITACAO"] = empAnur["CODIGO_MODALIDADE_LICITACAO"].fillna(0)
     empAnur["CODIGO_ACAO"] = empAnur["CODIGO_ACAO"].fillna(0)
@@ -145,8 +145,8 @@ def load_pagAnu2024():
         if os.path.isfile(arq):
                 emp = pd.read_csv(arq, sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}) #, index_col=[0]
                 pagAnut.append(emp)
-        else:
-            st.write(f"Arquivo **pagamento_anulacao{ano}mes{mesA}** não disponível")
+        #else:
+            #st.write(f"Arquivo **pagamento_anulacao{ano}mes{mesA}** não disponível")
     pagAnur = pd.concat(pagAnut)
     pagAnur['VALOR_EMPENHO'] = -pagAnur['VALOR_DOCUMENTO']
     pagAnur['DATA_DOCUMENTO'] = pd.to_datetime(pagAnur['DATA_DOCUMENTO'])#, format="%B", errors='ignore') #format="ISO8601" OU mixed
