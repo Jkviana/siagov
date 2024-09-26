@@ -55,14 +55,17 @@ def build_markup_for_logo(
     )
 
 
-def add_logo(png_file):
-    logo_markup = build_markup_for_logo(png_file)
-    st.markdown(
-        logo_markup,
-        unsafe_allow_html=True,
-    )
+# def add_logo(png_file):
+#     logo_markup = build_markup_for_logo(png_file)
+#     st.markdown(
+#         logo_markup,
+#         unsafe_allow_html=True,
+#     )
 
-add_logo("datasets/siagovlogonovo.png")
+#add_logo("datasets/siagovlogonovo.png")
+imagemlogosidebar = "datasets/siagovlogonovo.png"
+# logoprincipal = "datasets/siagovlogonovo.png"
+st.logo(imagemlogosidebar)
 
 #st.sidebar.image("datasets/siagovlogonovo.png")
 # ano = 2023 #st.sidebar.selectbox('Execício:', [2023, 2024], index=0)
