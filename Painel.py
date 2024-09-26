@@ -63,9 +63,9 @@ def build_markup_for_logo(
 #     )
 
 #add_logo("datasets/siagovlogonovo.png")
-imagemlogosidebar = "datasets/siagovlogonovo.png"
+#imagemlogosidebar = "datasets/siagovlogonovo.png"
 # logoprincipal = "datasets/siagovlogonovo.png"
-st.logo(imagemlogosidebar)
+#st.logo(imagemlogosidebar)
 
 #st.sidebar.image("datasets/siagovlogonovo.png")
 # ano = 2023 #st.sidebar.selectbox('Execício:', [2023, 2024], index=0)
