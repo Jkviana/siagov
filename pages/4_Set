@@ -189,7 +189,7 @@ result['DATA_EMPENHO'] = pd.to_datetime(result['DATA_EMPENHO'])
 result['MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month_name()
 result['NUM_MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month
 
-result = pd.merge(result, itemdespesas[['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA','NOME_ITEM_DESPESA']], how='left', on=['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA'])
+result = pd.merge(result, itemdespesas[['CODIGO_NATUREZA_DESPESA','NOME_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA','NOME_ITEM_DESPESA']], how='left', on=['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA'])
 coluna = ['EXERCICIO','CODIGO_UNIDADE_GESTORA']
 result[coluna] = result[coluna].astype('category')
 result['NOME_ITEM_DESPESA'] = result['NOME_ITEM_DESPESA'].fillna('')

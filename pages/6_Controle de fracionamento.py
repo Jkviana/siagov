@@ -67,7 +67,8 @@ st.sidebar.divider()
 df = pd.read_pickle("files/consolidado.pkl.compress", compression="gzip")
 df['CODIGO_NATUREZA_DESPESA'] = df['CODIGO_NATUREZA_DESPESA'].astype('category')
 df['CODIGO_ITEM_DESPESA'] = df['CODIGO_ITEM_DESPESA'].astype('category')
-df['COD_NOME_NATUREZA'] = df['CODIGO_ITEM_DESPESA'].astype(str) + " - " + df['NOME_ITEM_DESPESA'].astype(str)
+df['COD_NOME_NATUREZA'] = df['CODIGO_NATUREZA_DESPESA'].astype(str) + " - " + df['NOME_NATUREZA_DESPESA'].astype(str)
+df['COD_NOME_ITEM_DESPESA'] = df['CODIGO_ITEM_DESPESA'].astype(str) + " - " + df['NOME_ITEM_DESPESA'].astype(str)
 #st.write(df)
 df_ugs = pd.read_csv("files/unidade_gestora_2023.gzip", sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
 
@@ -106,18 +107,18 @@ with col1:
             st.rerun()
 
         filtro_nat_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4')
-        itens_nat_desp = sorted(filtro_nat_desp['CODIGO_NATUREZA_DESPESA'].unique())
+        itens_nat_desp = sorted(filtro_nat_desp['COD_NOME_NATUREZA'].unique())
         nat_desp = st.selectbox("Natureza da Despesa",itens_nat_desp)
-        filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}')
-        itens_item_desp = ["TODAS"] + sorted(filtro_item_desp['COD_NOME_NATUREZA'].unique())
+        filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"')
+        itens_item_desp = ["TODAS"] + sorted(filtro_item_desp['COD_NOME_ITEM_DESPESA'].unique())
         # itens_item_desp.insert(0, 'Todos') # itens_item_desp.append('Todos') para todos no final da lista
         #st.write(itens_item_desp)
         item_desp = st.selectbox("Item da Despesa",itens_item_desp)#, default=itens_item_desp)
 
 if item_desp == "TODAS":
-    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 else:
-    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and COD_NOME_NATUREZA == "{item_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}" and COD_NOME_ITEM_DESPESA == "{item_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 
 # Todos os lançamentos da unidade gestora
 totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
