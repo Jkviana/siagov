@@ -133,7 +133,14 @@ st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=T
                                                                                                    "3":st.column_config.NumberColumn("Março",format="%.2f"),
                                                                                                    "4":st.column_config.NumberColumn("Abril",format="%.2f"),
                                                                                                    "5":st.column_config.NumberColumn("Maio",format="%.2f"),
-                                                                                                   "6":st.column_config.NumberColumn("Junho",format="%.2f"),})          
+                                                                                                   "6":st.column_config.NumberColumn("Junho",format="%.2f"),
+                                                                                                   "7":st.column_config.NumberColumn("Julho",format="%.2f"),
+                                                                                                   "8":st.column_config.NumberColumn("Agosto",format="%.2f"),
+                                                                                                   "9":st.column_config.NumberColumn("Setembro",format="%.2f"),
+                                                                                                   "10":st.column_config.NumberColumn("Outubro",format="%.2f"),
+                                                                                                   "11":st.column_config.NumberColumn("Novembro",format="%.2f"),
+                                                                                                   "12":st.column_config.NumberColumn("Dezembro",format="%.2f")
+                                                                                                   })          
 
 
 item_con = st.selectbox('Detalhar Item de Despesa', sorted(ugs['NOME_ITEM_DESPESA'].unique()))
