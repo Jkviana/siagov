@@ -63,6 +63,10 @@ def build_markup_for_logo(
 #     )
 
 # add_logo("datasets/siagovlogonovo.png")
+imagemlogosidebar = "datasets/siagov.ico"
+logoprincipal = "datasets/siagov.ico"
+st.logo(imagemlogosidebar, icon_image = logoprincipal)
+
 st.image("datasets/siagovlogonovo.png", width=300)
 
 st.sidebar.image("datasets/GovPBT.png") #, width = 200)

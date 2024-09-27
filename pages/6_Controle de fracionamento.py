@@ -55,6 +55,10 @@ def build_markup_for_logo(
 #     )
 
 # add_logo("datasets/siagovlogonovo.png")
+imagemlogosidebar = "datasets/siagov.ico"
+logoprincipal = "datasets/siagov.ico"
+st.logo(imagemlogosidebar, icon_image = logoprincipal)
+
 st.image("datasets/siagovlogonovo.png", width=300)
 
 st.sidebar.image("datasets/GovPBT.png") #, width = 200)
@@ -85,7 +89,7 @@ col1, col2 = st.columns(2)
 
 with col2:
     with st.expander("Consultar Códigos e Siglas das Unidades Gestoras"):
-        st.write(df_ugs[colunas].set_index('CODIGO_UNIDADE_GESTORA'))
+        st.dataframe(df_ugs[colunas])#.set_index('CODIGO_UNIDADE_GESTORA'))
 with col1:
     with st.expander("Selecionar Unidade Gestora"):
         ####### ENCONTRAR O INDEX DA UNID GESTORA ##############
@@ -104,15 +108,15 @@ with col1:
         itens_nat_desp = sorted(filtro_nat_desp['CODIGO_NATUREZA_DESPESA'].unique())
         nat_desp = st.selectbox("Natureza da Despesa",itens_nat_desp)
         filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}')
-        itens_item_desp = ["Todas"] + sorted(filtro_item_desp['CODIGO_ITEM_DESPESA'].unique())
+        itens_item_desp = ["TODAS"] + sorted(filtro_item_desp['NOME_ITEM_DESPESA'].unique())
         # itens_item_desp.insert(0, 'Todos') # itens_item_desp.append('Todos') para todos no final da lista
         #st.write(itens_item_desp)
         item_desp = st.selectbox("Item da Despesa",itens_item_desp)#, default=itens_item_desp)
 
-if item_desp == "Todas":
+if item_desp == "TODAS":
     ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 else:
-    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and CODIGO_ITEM_DESPESA == {item_desp}') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and CODIGO_NATUREZA_DESPESA == {nat_desp} and NOME_ITEM_DESPESA == "{item_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 
 # Todos os lançamentos da unidade gestora
 totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
