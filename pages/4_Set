@@ -182,12 +182,15 @@ itemdespesas = itemdespesa()
 #st.write("itemdespesas")
 #itemdespesas
 
+df_ugs = pd.read_csv("files/unidade_gestora_2023.gzip", sep=';', encoding='ISO-8859-1', compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1})
 
 st.write("resultado")
 result = pd.concat([totEmpOrig,totEmpSup,totEmpAnu,totPagAnu])#, ignore_index=True, sort=False)
 result['DATA_EMPENHO'] = pd.to_datetime(result['DATA_EMPENHO'])
 result['MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month_name()
 result['NUM_MES_DOCUMENTO'] = result['DATA_EMPENHO'].dt.month
+
+result = pd.merge(result, df_ugs[['CODIGO_UNIDADE_GESTORA','SIGLA_UNIDADE_GESTORA','NOME_UNIDADE_GESTORA']], how='left', on=['CODIGO_UNIDADE_GESTORA'])
 
 result = pd.merge(result, itemdespesas[['CODIGO_NATUREZA_DESPESA','NOME_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA','NOME_ITEM_DESPESA']], how='left', on=['CODIGO_NATUREZA_DESPESA','CODIGO_ITEM_DESPESA'])
 coluna = ['EXERCICIO','CODIGO_UNIDADE_GESTORA']

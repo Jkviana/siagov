@@ -67,6 +67,7 @@ st.sidebar.divider()
 df = pd.read_pickle("files/consolidado.pkl.compress", compression="gzip")
 df['CODIGO_NATUREZA_DESPESA'] = df['CODIGO_NATUREZA_DESPESA'].astype('category')
 df['CODIGO_ITEM_DESPESA'] = df['CODIGO_ITEM_DESPESA'].astype('category')
+df['COD_NOME_UNID_GESTORA'] = df['CODIGO_UNIDADE_GESTORA'].astype(str) + " - " + df['SIGLA_UNIDADE_GESTORA'].astype(str) + " - " + df['NOME_UNIDADE_GESTORA'].astype(str)
 df['COD_NOME_NATUREZA'] = df['CODIGO_NATUREZA_DESPESA'].astype(str) + " - " + df['NOME_NATUREZA_DESPESA'].astype(str)
 df['COD_NOME_ITEM_DESPESA'] = df['CODIGO_ITEM_DESPESA'].astype(str) + " - " + df['NOME_ITEM_DESPESA'].astype(str)
 #st.write(df)
@@ -77,9 +78,9 @@ colunas = list(df_ugs)
 df_ugs[colunas] = df_ugs[colunas].astype('category')
 
 if 'ugsKey' not in st.session_state:
-    st.session_state['ugsKey'] = '270001'
+    st.session_state['ugsKey'] = '270001 - SEDH - SECRETARIA DE ESTADO DO DESENVOLVIMENTO HUMANO'
 
-unid = df_ugs[df_ugs['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].iloc[0]
+unid = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].iloc[0]
 #texto = str(unid['NOME_UNIDADE_GESTORA'])#.iloc[0]
 #unid
 st.subheader(f"{unid['CODIGO_UNIDADE_GESTORA']} - {unid['SIGLA_UNIDADE_GESTORA']}")
@@ -95,33 +96,33 @@ with col2:
 with col1:
     with st.expander("Selecionar Unidade Gestora"):
         ####### ENCONTRAR O INDEX DA UNID GESTORA ##############
-        dfindex = pd.DataFrame(df["CODIGO_UNIDADE_GESTORA"].unique().sort_values())
+        dfindex = pd.DataFrame(df["COD_NOME_UNID_GESTORA"].unique())#.sort_values(by=[0])
         dfindex.reset_index(inplace=True)
         dfindex.rename(columns={0:'nome'}, inplace=True)
-        dfnome = dfindex.query(f"nome == {st.session_state.ugsKey}").sort_values('nome')
+        dfnome = dfindex.query(f"nome == '{st.session_state.ugsKey}'")#.sort_values('nome')
         dfnometx = format(int(dfnome.sum(numeric_only=True)['index']))
-        ugss = st.selectbox("Unidade Gestora Selecionada",sorted(df["CODIGO_UNIDADE_GESTORA"].unique()), index=int(dfnometx), label_visibility="collapsed")
+        ugss = st.selectbox("Unidade Gestora Selecionada",df["COD_NOME_UNID_GESTORA"].unique(), index=int(dfnometx), label_visibility="collapsed")
         ### INICIALIZAR UNIDADE GESTORA ###
         if st.button("Alterar Unidade Gestora"):
             st.session_state.ugsKey = ugss
             st.rerun()
 
-        filtro_nat_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query('CODIGO_MODALIDADE_LICITACAO == 4')
+        filtro_nat_desp = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].query('CODIGO_MODALIDADE_LICITACAO == 4')
         itens_nat_desp = sorted(filtro_nat_desp['COD_NOME_NATUREZA'].unique())
         nat_desp = st.selectbox("Natureza da Despesa",itens_nat_desp)
-        filtro_item_desp = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"')
+        filtro_item_desp = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"')
         itens_item_desp = ["TODAS"] + sorted(filtro_item_desp['COD_NOME_ITEM_DESPESA'].unique())
         # itens_item_desp.insert(0, 'Todos') # itens_item_desp.append('Todos') para todos no final da lista
         #st.write(itens_item_desp)
         item_desp = st.selectbox("Item da Despesa",itens_item_desp)#, default=itens_item_desp)
 
 if item_desp == "TODAS":
-    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+    ugs = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 else:
-    ugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}" and COD_NOME_ITEM_DESPESA == "{item_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
+    ugs = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].query(f'CODIGO_MODALIDADE_LICITACAO == 4 and COD_NOME_NATUREZA == "{nat_desp}" and COD_NOME_ITEM_DESPESA == "{item_desp}"') #CODIGO_MOTIVO_DISPENSA_LICITACAO
 
 # Todos os lançamentos da unidade gestora
-totalugs = df[df['CODIGO_UNIDADE_GESTORA'] == int(st.session_state.ugsKey)]
+totalugs = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey]
 
 tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
 tabela['TOTAL'] = tabela.sum(axis=1)
