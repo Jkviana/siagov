@@ -150,7 +150,7 @@ item_con = st.selectbox('Detalhar Item de Despesa', sorted(ugs['NOME_ITEM_DESPES
 con_item = ugs[ugs['NOME_ITEM_DESPESA'] == item_con]
 con_item_formated = ugs[ugs['NOME_ITEM_DESPESA'] == item_con]
 con_item_formated['VALOR_EMPENHO'] = con_item_formated['VALOR_EMPENHO'].apply(formatar) #.sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
-st.dataframe(con_item_formated[['EXERCICIO','CODIGO_UNIDADE_GESTORA','NUMERO_EMPENHO_ORIGEM','HISTORICO_EMPENHO','VALOR_EMPENHO']].sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True) #, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
+st.dataframe(con_item_formated[['EXERCICIO','CODIGO_UNIDADE_GESTORA','NUMERO_EMPENHO_ORIGEM','HISTORICO_EMPENHO','VALOR_EMPENHO','CODIGO_MODALIDADE_LICITACAO','CODIGO_MOTIVO_DISPENSA_LICITACAO']].sort_values('NUMERO_EMPENHO_ORIGEM'), hide_index=True, use_container_width=True) #, column_config={"VALOR_EMPENHO":st.column_config.NumberColumn(format="%.2f")})
 
 st.divider()
 st.subheader('Fornecedores')
