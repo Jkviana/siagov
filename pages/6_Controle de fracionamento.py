@@ -124,7 +124,7 @@ else:
 # Todos os lançamentos da unidade gestora
 totalugs = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey]
 
-tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
+tabela = pd.pivot_table(ugs, values='VALOR_EMPENHO', index=['COD_NOME_ITEM_DESPESA'], columns=['NUM_MES_DOCUMENTO'], aggfunc='sum')
 tabela['TOTAL'] = tabela.sum(axis=1)
 
 def formatar(valor):
