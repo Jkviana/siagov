@@ -74,8 +74,8 @@ st.sidebar.divider()
 #ano = st.sidebar.selectbox('Execício:', [2023, 2024])
 
 dataatual = date.today()
-ano = dataatual.year
-mesA = dataatual.month
+ano = 2024 #dataatual.year
+mesA = 13 #dataatual.month
 
 # if 'ano' not in st.session_state:
 #     st.session_state.ano = dataatual.year
