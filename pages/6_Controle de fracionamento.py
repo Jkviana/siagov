@@ -77,8 +77,9 @@ df_ugs = pd.read_csv("files/unidade_gestora_2023.gzip", sep=';', encoding='ISO-8
 colunas = list(df_ugs)
 df_ugs[colunas] = df_ugs[colunas].astype('category')
 
+#df['COD_NOME_UNID_GESTORA']
 if 'ugsKey' not in st.session_state:
-    st.session_state['ugsKey'] = '270001 - SEDH - SECRETARIA DE ESTADO DO DESENVOLVIMENTO HUMANO'
+    st.session_state['ugsKey'] = '270001.0 - SEDH - SECRETARIA DE ESTADO DO DESENVOLVIMENTO HUMANO'
 
 unid = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].iloc[0]
 #texto = str(unid['NOME_UNIDADE_GESTORA'])#.iloc[0]
@@ -131,18 +132,18 @@ def formatar(valor):
      return "R$ {:,.2f}".format(float(valor)).replace(",", "X").replace(".", ",").replace("X", ".")
 
 tabela['TOTAL'] = tabela['TOTAL'].apply(formatar)
-st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=True, column_config={"1":st.column_config.NumberColumn("Janeiro",format="%.2f"),
-                                                                                                   "2":st.column_config.NumberColumn("Fevereiro",format="%.2f"),
-                                                                                                   "3":st.column_config.NumberColumn("Março",format="%.2f"),
-                                                                                                   "4":st.column_config.NumberColumn("Abril",format="%.2f"),
-                                                                                                   "5":st.column_config.NumberColumn("Maio",format="%.2f"),
-                                                                                                   "6":st.column_config.NumberColumn("Junho",format="%.2f"),
-                                                                                                   "7":st.column_config.NumberColumn("Julho",format="%.2f"),
-                                                                                                   "8":st.column_config.NumberColumn("Agosto",format="%.2f"),
-                                                                                                   "9":st.column_config.NumberColumn("Setembro",format="%.2f"),
-                                                                                                   "10":st.column_config.NumberColumn("Outubro",format="%.2f"),
-                                                                                                   "11":st.column_config.NumberColumn("Novembro",format="%.2f"),
-                                                                                                   "12":st.column_config.NumberColumn("Dezembro",format="%.2f")
+st.dataframe(tabela.sort_values('TOTAL', ascending=False), use_container_width=True, column_config={"1.0":st.column_config.NumberColumn("Janeiro",format="%.2f"),
+                                                                                                   "2.0":st.column_config.NumberColumn("Fevereiro",format="%.2f"),
+                                                                                                   "3.0":st.column_config.NumberColumn("Março",format="%.2f"),
+                                                                                                   "4.0":st.column_config.NumberColumn("Abril",format="%.2f"),
+                                                                                                   "5.0":st.column_config.NumberColumn("Maio",format="%.2f"),
+                                                                                                   "6.0":st.column_config.NumberColumn("Junho",format="%.2f"),
+                                                                                                   "7.0":st.column_config.NumberColumn("Julho",format="%.2f"),
+                                                                                                   "8.0":st.column_config.NumberColumn("Agosto",format="%.2f"),
+                                                                                                   "9.0":st.column_config.NumberColumn("Setembro",format="%.2f"),
+                                                                                                   "10.0":st.column_config.NumberColumn("Outubro",format="%.2f"),
+                                                                                                   "11.0":st.column_config.NumberColumn("Novembro",format="%.2f"),
+                                                                                                   "12.0":st.column_config.NumberColumn("Dezembro",format="%.2f")
                                                                                                    })          
 
 
