@@ -74,8 +74,8 @@ st.sidebar.divider()
 #ano = st.sidebar.selectbox('Execício:', [2023, 2024])
 
 dataatual = date.today()
-ano = 2024 #dataatual.year
-mesA = 13 #dataatual.month
+ano = dataatual.year
+mesA = dataatual.month
 
 # if 'ano' not in st.session_state:
 #     st.session_state.ano = dataatual.year
@@ -208,7 +208,7 @@ df = pd.DataFrame(totEmpOrig["CODIGO_UNIDADE_GESTORA"].unique())
 df.reset_index(inplace=True)
 df.rename(columns={0:'nome'}, inplace=True)
 #st.dataframe(df)
-dfnome = df.query(f"nome == 270001")
+dfnome = df.query(f"nome == 310101")
 dfnometx = format(int(dfnome.sum(numeric_only=True)['index']))
 #st.write(dfnometx)
 ugs = st.sidebar.selectbox("Código da Unidade Gestora", totEmpOrig["CODIGO_UNIDADE_GESTORA"].unique(), index=int(dfnometx), help="Unidade Gestora", placeholder="Selecione Unidade Gestora")

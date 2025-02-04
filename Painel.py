@@ -161,10 +161,10 @@ def style_metric_cards(
         unsafe_allow_html=True,
     )
 
-############## 2024 ###############
+############## 2025 ###############
     
-ano = 2024
-mes = 13 #date.today().month
+ano = 2025
+mes = date.today().month
 
 ### Carga de dados ###
 @st.cache_data
@@ -299,9 +299,9 @@ col3.metric(label="Anulação de Empenhos (em milhões)", value=f"{valor_realEmp
 col4.metric(label="Anulação de Pagamentos (em milhões)", value=f"{valor_realPagAnu}", delta=f"{contagemPagAnu}", help="Totais de Pagamentos Anulados")
 
 st.subheader('', divider='blue')
-################  2023  ############
+################  2024  ############
 
-ano = 2023
+ano = 2024
 mes = 13
 ### Carga de dados ###
 @st.cache_data
@@ -398,7 +398,7 @@ st.write(f'De janeiro a dezembro de {ano} foram empenhados de __RS {valorTotalEm
     No mesmo período foram cancelados __RS{valorTotalAnulado}__ em *{contTotalAnuText}* registros de anulação de empenhos e anulação de autorização de pagamentos. \
 ')
 
-style_metric_cards()
+#style_metric_cards()
 col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(label="Empenhos (em milhões)", value=f"{valor_real}", delta=f"{contagemOriginal}")
@@ -409,9 +409,9 @@ col4.metric(label="Anulação de Pagamentos (em milhões)", value=f"{valor_realP
 st.subheader('', divider='blue')
 
 ###### PARA A CARGA DOS ARQUIVOS ########
-# anoB = 2024
-# mesB = 13
-# arquivo = "empenho_suplementacao" # "empenho_suplementacao"  "empenho_original" "empenho_anulacao" "pagamento_anulacao"
+# anoB = 2025
+# mesB = 3
+# arquivo = "pagamento_anulacao" # "empenho_suplementacao"  "empenho_original" "empenho_anulacao" "pagamento_anulacao"
 # col1, col2 = st.columns([0.5, 4])
 # with col2:
 #     for i in range (1, mesB):
@@ -432,4 +432,4 @@ st.subheader('', divider='blue')
 #                     else:
 #                         st.error(f"Arquivos de {arquivo} do ano {anoB} mês {i} não disponível")
 # with col1:
-#     st.write(i)
+#     st.write(anoB,i)

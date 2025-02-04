@@ -74,8 +74,8 @@ st.write(st.session_state.ugs)
 
 ### CARGA DE DADOS EMPENHO ORIGINAL
 dataatual = date.today()
-ano = 2024 #dataatual.year
-mesA = 13 #dataatual.month
+ano = 2025 #dataatual.year
+mesA = dataatual.month
 if dataatual.year > ano:
         mes = mesA + 1
 
