@@ -79,8 +79,8 @@ df_ugs[colunas] = df_ugs[colunas].astype('category')
 
 #df['COD_NOME_UNID_GESTORA']
 if 'ugsKey' not in st.session_state:
-    st.session_state['ugsKey'] = '310101 - DER - DEPARTAMENTO DE ESTRADAS E RODAGEM'
-
+    st.session_state['ugsKey'] = '310101.0 - DER - DEPARTAMENTO DE ESTRADAS E RODAGEM'
+#st.write(st.session_state['ugsKey'])
 unid = df[df['COD_NOME_UNID_GESTORA'] == st.session_state.ugsKey].iloc[0]
 #texto = str(unid['NOME_UNIDADE_GESTORA'])#.iloc[0]
 #unid
